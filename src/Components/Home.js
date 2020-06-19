@@ -74,8 +74,9 @@ function Home(){
     }, [user])
 
     return (
-    <div>
-        <form style={{display: 'flex', flexDirection: 'column'}}>
+    <div className="home-wrapper">
+        <h2>Log In to See Recipe's</h2>
+        <form>
             <label htmlFor='email' onSubmit={handleSubmit}>
                 Email
                 <input type='email' id='email' name='email' value={user.email} onChange={handleChanges}/>
