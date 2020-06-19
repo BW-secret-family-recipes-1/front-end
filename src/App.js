@@ -13,8 +13,10 @@ export default function App() {
           <h1>Secret Family Recipes</h1>
         </div>
         <div className="nav-links">
-          <Link to="/">Home</Link>
-          <a href="#">About</a>
+          <a href="https://hardcore-aryabhata-1f5562.netlify.app/">Home</a>
+          <Link to="/">Log in / Log out</Link>
+          <Link to="/signup">Sign up</Link>
+          <a href="https://hardcore-aryabhata-1f5562.netlify.app/about.html">About</a>
           <Link to="/user">User Recipes</Link>
           <Link to="/recipes">Recipes</Link>
         </div>
