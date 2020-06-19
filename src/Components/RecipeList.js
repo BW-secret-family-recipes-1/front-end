@@ -9,7 +9,7 @@ function RecipeList(props){
         {
             user: 1,
             id: 1,
-            title: 'Rice Crispie Treats',
+            title: 'Rice Crispie Treats 1',
             source: 'Meemaw',
             ingredients: [
                 "Rice Crispies",
@@ -25,7 +25,7 @@ function RecipeList(props){
         {
             user: 2,
             id: 1,
-            title: 'Rice Crispie Treats',
+            title: 'Rice Crispie Treats 2',
             source: 'Meemaw',
             ingredients: [
                 "Rice Crispies",
@@ -41,7 +41,7 @@ function RecipeList(props){
         {
             user: 3,
             id: 1,
-            title: 'Rice Crispie Treats',
+            title: 'Rice Crispie Treats 3',
             source: 'Meemaw',
             ingredients: [
                 "Rice Crispies",
@@ -57,7 +57,7 @@ function RecipeList(props){
         {
             user: 4,
             id: 1,
-            title: 'Rice Crispie Treats',
+            title: 'Rice Crispie Treats 4',
             source: 'Meemaw',
             ingredients: [
                 "Rice Crispies",
@@ -73,7 +73,7 @@ function RecipeList(props){
         {
             user: 5,
             id: 1,
-            title: 'Rice Crispie Treats',
+            title: 'Rice Crispie Treats 5',
             source: 'Meemaw',
             ingredients: [
                 "Rice Crispies",

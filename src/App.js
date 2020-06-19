@@ -6,6 +6,7 @@ import Recipe from './Components/Recipe';
 import User from './Components/User';
 import { Route, Link, Switch } from 'react-router-dom';
 import RecipeList from './Components/RecipeList';
+import Signup from './Components/Signup';
 
 export default function App() {
   return (
@@ -24,7 +25,7 @@ export default function App() {
       </nav>
       <Switch>
         <Route path='/signup'>
-
+          <Signup />
         </Route>
         <Route path="/user">
           <User />

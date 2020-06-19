@@ -35,6 +35,11 @@ nav {
   flex-direction: column;
   align-items: center;
   padding: 1em;
+  width: 40%;
+}
+
+.home-wrapper form .form-group{
+  width: 50%;
 }
 
 .home-wrapper form label {
@@ -42,6 +47,7 @@ nav {
   flex-direction: column;
   width: 300px;
 }
+
 
 .Footer {
   display: flex;
