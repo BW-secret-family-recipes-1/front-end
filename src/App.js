@@ -14,7 +14,7 @@ export default function App() {
         </div>
         <div className="nav-links">
           <Link to="/">Home</Link>
-          <a href="#">About</a>
+          <a href="https://hardcore-aryabhata-1f5562.netlify.app/">About</a>
           <Link to="/user">User Recipes</Link>
           <Link to="/recipes">Recipes</Link>
         </div>
