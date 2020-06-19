@@ -20,7 +20,7 @@ function Home(){
             .required("You must provide an email address"),
         password: Yup
             .string()
-            .required("Please enter a passoword")
+            .required("Please enter a password")
             .matches(
                 /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
                 "Must contain 8 characters, One upper case, One lower case, One number, and one special character"
