@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useParams, Link } from 'react-router-dom'
 import RecipeLink from './RecipeLink'
+import { Jumbotron, Container, Card, CardImgOverlay, CardImg, Col, Row } from 'reactstrap'
 
 function User(props){
 
@@ -26,7 +27,67 @@ function User(props){
                 "Stir",
                 "Cool"
             ]
-        }
+        },
+        /*{
+            id: 1,
+            title: 'Rice Crispie Treats',
+            source: 'Meemaw',
+            ingredients: [
+                "Rice Crispies",
+                "Marshmallows"
+            ],
+            instructions: [
+                "Melt the Marshmallows",
+                "Add the Rice Crispies",
+                "Stir",
+                "Cool"
+            ]
+        },
+        {
+            id: 1,
+            title: 'Rice Crispie Treats',
+            source: 'Meemaw',
+            ingredients: [
+                "Rice Crispies",
+                "Marshmallows"
+            ],
+            instructions: [
+                "Melt the Marshmallows",
+                "Add the Rice Crispies",
+                "Stir",
+                "Cool"
+            ]
+        },
+        {
+            id: 1,
+            title: 'Rice Crispie Treats',
+            source: 'Meemaw',
+            ingredients: [
+                "Rice Crispies",
+                "Marshmallows"
+            ],
+            instructions: [
+                "Melt the Marshmallows",
+                "Add the Rice Crispies",
+                "Stir",
+                "Cool"
+            ]
+        },
+        {
+            id: 1,
+            title: 'Rice Crispie Treats',
+            source: 'Meemaw',
+            ingredients: [
+                "Rice Crispies",
+                "Marshmallows"
+            ],
+            instructions: [
+                "Melt the Marshmallows",
+                "Add the Rice Crispies",
+                "Stir",
+                "Cool"
+            ]
+        }//*/
     ])
 
     useEffect(() =>{
@@ -39,14 +100,27 @@ function User(props){
     }, [])
 
     return (
-        <div>
-            <h1>{user.first_name} {user.last_name}'s Family Recipes!</h1>
-            <div>
+        <Jumbotron>
+            <h1 className='display-3'>{user.first_name} {user.last_name}'s Family Recipes!</h1>
+            <hr className='my-2'></hr>
+            <Container>
+                <Row xs='5'>
                 {recipes.map(recipe =>{
-                    return <Link to={`/${params.userid}/${recipe.id}`} ><RecipeLink data={recipe}/></Link>
+                    return (
+                        <Col>
+                        <Card>
+                            <CardImg width='100%' src={require('../Assets/cuttingboard.png')} />
+                            <CardImgOverlay>
+                                <Link to={`/${params.userid}/${recipe.id}`} ><RecipeLink data={recipe}/></Link>
+                            </CardImgOverlay>
+                        </Card>
+                        </Col>
+                        
+                    )
                 })}
-            </div>
-        </div>
+                </Row>
+            </Container>
+        </Jumbotron>
     )
 }
 
