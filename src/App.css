@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@300;400&family=Charmonman&display=swap');
+
+.App {
+  font-family: 'Alegreya Sans', sans-serif;
+}
 nav {
   display: flex;
   flex-direction: row;
@@ -10,6 +15,11 @@ nav {
 .title-bar {
   margin: 1em;
   padding: 1em;
+}
+
+.title-bar h1,
+.home-wrapper h2 {
+  font-family: 'Charmonman', cursive;
 }
 
 .nav-links {
@@ -28,6 +38,7 @@ nav {
   align-items: center;
   background-color: #C49069;
 }
+
 .home-wrapper form {
   border: 4px groove #1F6911;
   margin-bottom: 1em;
@@ -40,12 +51,21 @@ nav {
 
 .home-wrapper form .form-group{
   width: 50%;
+  background-image: url(./images/cuttingboard.png);
+}
+
+.home-wrapper form button {
+  background-color: #1F6911;
+  font-size: 1.1em;
+  padding: .3em;
 }
 
 .home-wrapper form label {
   display: flex;
   flex-direction: column;
   width: 300px;
+  color: white;
+  font-size: 1.1em;
 }
 
 
