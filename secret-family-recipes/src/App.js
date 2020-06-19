@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import Home from './Components/Home';
 import { Route } from 'react-router-dom';
+import User from './Components/User';
+import Recipe from './Components/Recipe';
 
 function App() {
   return (
@@ -10,8 +12,11 @@ function App() {
       <Route exact path='/'>
         <Home />
       </Route>
-      <Route path='/:userid'>
+      <Route exact path='/:userid'>
         <User />
+      </Route>
+      <Route path='/:userid/:recipeid'>
+        <Recipe />
       </Route>
     </div>
   );
