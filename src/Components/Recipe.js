@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import Axios from 'axios'
+import { Card, CardHeader, CardSubtitle, ListGroup, ListGroupItem, ListGroupItemText, CardBody, CardTitle } from 'reactstrap'
 
 function Recipe(props){
     const [recipe, setRecipe] = useState({
@@ -30,24 +31,50 @@ function Recipe(props){
     })
 
     return (
-    <div>
-        <h1>{recipe.title}</h1>
-        <h2>originally by - {recipe.source}</h2>
-        <div style={{borderBottom: '1px solid black'}}>
-            <ul>
-                {recipe.ingredients.map(ingredient =>{
-                    return <li>{ingredient}</li>
-                })}
-            </ul>
-        </div>
-        <div>
-            <ol>
-                {recipe.instructions.map(instruction => {
-                    return <li>{instruction}</li>
-                })}
-            </ol>
-        </div>
-    </div>
+    <Card>
+        <CardHeader>
+            <CardTitle>
+                {recipe.title}
+            </CardTitle>
+            <CardSubtitle>
+                originally by - {recipe.source}
+            </CardSubtitle>
+        </CardHeader>
+        <Card>
+            <CardHeader>
+                Ingredients
+            </CardHeader>
+            <CardBody>
+                <ListGroup>
+                    {recipe.ingredients.map(ingredient =>{
+                        return (
+                            <ListGroupItem>
+                                {ingredient}
+                            </ListGroupItem>
+                        )
+                    })}
+                </ListGroup>
+            </CardBody>
+        </Card>
+        <Card>
+            <CardHeader>
+                <CardTitle>
+                    Instructions
+                </CardTitle>
+            </CardHeader>
+            <CardBody>
+                <ListGroup>
+                    {recipe.instructions.map((instruction, index) => {
+                        return (
+                            <ListGroupItem>
+                                {index+1}. {instruction}
+                            </ListGroupItem>
+                        )
+                    })}
+                </ListGroup>
+            </CardBody>
+        </Card>
+    </Card>
     )
 }
 
