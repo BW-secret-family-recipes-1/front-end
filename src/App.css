@@ -47,11 +47,11 @@ nav {
   align-items: center;
   padding: 1em;
   width: 40%;
+  background-image: url(./images/cuttingboard.png);
 }
 
 .home-wrapper form .form-group{
   width: 50%;
-  background-image: url(./images/cuttingboard.png);
 }
 
 .home-wrapper form button {
