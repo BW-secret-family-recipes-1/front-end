@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import * as Yup from 'yup'
+import React from 'react'
 
 function Signup(){
     const blank = {
