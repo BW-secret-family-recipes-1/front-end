@@ -13,7 +13,7 @@ const Home = (props) => {
    e.preventDefault();
    setIsLoading(true);
    axios
-     .post("#", credentials)
+     .post("", credentials)
      .then((res) => {
        setTimeout(() => {
          setIsLoading(false);
@@ -41,6 +41,7 @@ const Home = (props) => {
      
      <div className="home-wrapper">
        <h2>Log In to See Recipe's</h2>
+       <p>{`Admin: email: testing@email.com password: i<3Lambd4`}</p>
        <h3 style={{ color: "red" }}>{error}</h3>
         {isLoading ? (<h1>Loading</h1>) : (
        <form onSubmit={handleLogin}>
