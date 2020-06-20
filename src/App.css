@@ -27,6 +27,7 @@
 .card-img-overlay a{
   font-family: 'Charmonman', cursive;
   color: white;
+  font-size: 2rem;
 }
 
 .card-img-overlay a:hover{
