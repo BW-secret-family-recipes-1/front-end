@@ -21,6 +21,7 @@ nav {
 .home-wrapper h2,
 .card-title h1{
   font-family: 'Charmonman', cursive;
+  font-size: 3rem;
 }
 
 .card-img-overlay a{
