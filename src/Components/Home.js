@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
+import { Form, Label, Input } from 'reactstrap';
 
 const Home = (props) => {
 
@@ -44,29 +45,29 @@ const Home = (props) => {
        <p>{`Admin: email: testing@email.com password: i<3Lambd4`}</p>
        <h3 style={{ color: "red" }}>{error}</h3>
         {isLoading ? (<h1>Loading</h1>) : (
-       <form onSubmit={handleLogin}>
-         <label>
-             <p>Email</p>
-             <input
+       <Form onSubmit={handleLogin}>
+         <Label>
+             Email
+             <Input
            type="text"
            placeholder="email"
            name="email"
            value={credentials.email}
            onChange={handleChange}
          />
-         </label>
-         <label>
-             <p>Password:</p>
-             <input
+         </Label>
+         <Label>
+            Password:
+             <Input
            type="password"
            placeholder="Password"
            name="password"
            value={credentials.password}
            onChange={handleChange}
          />
-         </label>
+         </Label>
          <button type="submit">Login</button>
-       </form>
+       </Form>
      )}
    </div>
  );
