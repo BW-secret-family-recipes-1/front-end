@@ -3,7 +3,7 @@
 .App {
   font-family: 'Alegreya Sans', sans-serif;
 }
-nav {
+.nav {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
