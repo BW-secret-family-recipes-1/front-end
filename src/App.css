@@ -18,9 +18,22 @@ nav {
 }
 
 .title-bar h1,
-.home-wrapper h2 {
+.home-wrapper h2,
+.card-title h1{
   font-family: 'Charmonman', cursive;
+  font-size: 3rem;
 }
+
+.card-img-overlay a{
+  font-family: 'Charmonman', cursive;
+  color: white;
+}
+
+.card-img-overlay a:hover{
+  text-decoration: none;
+  color: black;
+}
+
 
 .nav-links {
   margin: 1em;
