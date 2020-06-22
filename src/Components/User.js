@@ -14,17 +14,21 @@ function User(props)  {
         id: 1,
         first_name: 'Test',
         last_name: 'User'
-    })
+    });
 
+    const [recipes, setRecipes] = useState([]);
 
-    useEffect(() =>{
-        axios.get(`dummy/${params.userid}`)
-            .then(data =>{
-                /*
-                setUser(data.data)
-                //*/
+    useEffect(() => {
+        axiosWithAuth() 
+            .get("")
+            .then((res) => {
+                console.log("ml: user.js: res: ", res.data);
+                setRecipes(res.data);
             })
-    }, [])
+            .catch((err) => {
+                console.group("ml: user.js: error: ", err);
+            });
+    }, []);
 
     return (
         <Jumbotron>
