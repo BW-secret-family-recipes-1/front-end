@@ -34,7 +34,7 @@ export default function App() {
           <Recipe />
         </Route>
         <Route path="/recipes">
-          <RecipeList user='-1'/>
+          <RecipeList user='-1' recipes={[]}/>
         </Route>
         <Route path="/" component={Home} />
       </Switch>

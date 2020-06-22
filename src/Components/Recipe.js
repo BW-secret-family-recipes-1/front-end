@@ -48,6 +48,7 @@ function Recipe(props){
             "blach"
         ]
     })
+    const [scale, setScale] = useState(1)
     const [background, setBackground] = useState([]);
     const [recipeHeight, setRecipeHeight] = useState('100%');
 
@@ -65,26 +66,21 @@ function Recipe(props){
         window.addEventListener('resize', handleResize)
         
     }, [])
-
+    
       useEffect(() =>{
         const count = parseInt(recipeHeight)/document.querySelector('#bkgImg').offsetHeight
-                let newBackground = []
-                let scale = -1
-                for(let i=0;i< count;i++){
-                    newBackground.push(scale)
-                    scale = scale *-1
-                }
+                let newBackground = new Array(Math.round(count)).fill(1)
                 setBackground(newBackground)
     }, [recipeHeight])
-
+    /*
     useEffect(()=>{
         Axios.get(`dummy/${params.recipeid}`)
             .then(data =>{
-                /*
+                
                 setRecipe(data.data);
-                //*/
+                
             })
-    }, [])
+    }, [])//*/
     
 
     return (
@@ -100,8 +96,9 @@ function Recipe(props){
         </CardHeader>
         <Card style={{maxHeight: recipeHeight, overflow: 'hidden'}}>
             <CardImg id='bkgImg' src={woodimage}/>
-            {background.map(flip =>{
-                return <CardImg src={woodimage} style={{transform: `scaleY(${flip})`}}/>
+            {background.map((flip, index) =>{
+
+                return <CardImg src={woodimage} style={{transform: `scaleY(${index % 2 === 1 ? 1 : -1})`}}/>
             })}
             <CardImgOverlay >
         
