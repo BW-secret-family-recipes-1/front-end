@@ -40,6 +40,7 @@ export default function App() {
       </Switch>
       <div className="Footer">
         <p>Created by Build Week Lambda Students</p>
+        <p>June 2020</p>
       </div>
     </div>
   );
