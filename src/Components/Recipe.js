@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import Axios from 'axios'
 import { Card, CardHeader, CardSubtitle, ListGroup, ListGroupItem, ListGroupItemText, CardBody, CardTitle, CardImg, CardImgOverlay } from 'reactstrap'
+import woodimage from '../Assets/woodboard.jpg'
 
 function Recipe(props){
     const [recipe, setRecipe] = useState({
@@ -98,9 +99,9 @@ function Recipe(props){
             </CardSubtitle>
         </CardHeader>
         <Card style={{maxHeight: recipeHeight, overflow: 'hidden'}}>
-            <CardImg id='bkgImg' src={require('../Assets/woodboard.jpg')}/>
+            <CardImg id='bkgImg' src={woodimage}/>
             {background.map(flip =>{
-                return <CardImg src={require('../Assets/woodboard.jpg')} style={{transform: `scaleY(${flip})`}}/>
+                return <CardImg src={woodimage} style={{transform: `scaleY(${flip})`}}/>
             })}
             <CardImgOverlay >
         
