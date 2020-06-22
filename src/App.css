@@ -61,7 +61,8 @@
   align-items: center;
   padding: 1em;
   width: 40%;
-  background-image: url(./images/cuttingboard.png);
+  background-image: url(./Assets/cuttingboard.png);
+  background-size: cover;
 }
 
 .home-wrapper form .form-group{

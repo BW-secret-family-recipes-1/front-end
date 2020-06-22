@@ -47,7 +47,7 @@ function Recipe(props){
             "blach"
         ]
     })
-
+    const [background, setBackground] = useState([]);
     const [recipeHeight, setRecipeHeight] = useState('100%');
 
     const params = useParams()
@@ -55,6 +55,28 @@ function Recipe(props){
     useEffect(()=>{
         setRecipeHeight(
             (document.querySelector('#ingredients').offsetHeight + document.querySelector('#instructions').offsetHeight) + 50 + 'px')
+            
+        function handleResize() {
+            setRecipeHeight(
+                (document.querySelector('#ingredients').offsetHeight + document.querySelector('#instructions').offsetHeight) + 50 + 'px'
+            )
+        }
+        window.addEventListener('resize', handleResize)
+        
+    }, [])
+
+      useEffect(() =>{
+        const count = parseInt(recipeHeight)/document.querySelector('#bkgImg').offsetHeight
+                let newBackground = []
+                let scale = -1
+                for(let i=0;i< count;i++){
+                    newBackground.push(scale)
+                    scale = scale *-1
+                }
+                setBackground(newBackground)
+    }, [recipeHeight])
+
+    useEffect(()=>{
         Axios.get(`dummy/${params.recipeid}`)
             .then(data =>{
                 /*
@@ -76,10 +98,10 @@ function Recipe(props){
             </CardSubtitle>
         </CardHeader>
         <Card style={{maxHeight: recipeHeight, overflow: 'hidden'}}>
-            <CardImg  src={require('../Assets/woodboard.jpg')} />
-            <CardImg  src={require('../Assets/woodboard.jpg')} />
-            <CardImg  src={require('../Assets/woodboard.jpg')} />
-            <CardImg  src={require('../Assets/woodboard.jpg')} />
+            <CardImg id='bkgImg' src={require('../Assets/woodboard.jpg')}/>
+            {background.map(flip =>{
+                return <CardImg src={require('../Assets/woodboard.jpg')} style={{transform: `scaleY(${flip})`}}/>
+            })}
             <CardImgOverlay >
         
         <Card id='ingredients' style={{backgroundColor: 'rgba(0,0,0,.2)', borderColor: 'white', color: 'white'}}>
