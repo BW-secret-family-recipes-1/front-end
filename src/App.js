@@ -18,7 +18,7 @@ export default function App() {
           <a href="https://modest-lumiere-17a08c.netlify.app/" target="_blank">Home</a>
           <Link to="/">Log in / Log out</Link>
           <Link to="/signup">Sign up</Link>
-          <a href="https://modest-lumiere-17a08c.netlify.app/" target="_blank">About</a>
+          <a href="https://modest-lumiere-17a08c.netlify.app/about" target="_blank">About</a>
           <Link to="/user">User Recipes</Link>
           <Link to="/recipes">Recipes</Link>
         </div>
