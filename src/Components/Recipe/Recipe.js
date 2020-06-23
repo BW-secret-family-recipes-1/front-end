@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import Axios from 'axios'
-import { Card, CardHeader, CardSubtitle, ListGroup, ListGroupItem, ListGroupItemText, CardBody, CardTitle, CardImg, CardImgOverlay } from 'reactstrap'
-import woodimage from '../Assets/woodboard.jpg'
+import { Card, CardHeader, CardSubtitle, CardTitle, CardImgOverlay } from 'reactstrap'
+
+import Instructions from './Instructions'
+import Ingredients from './Ingredients'
+import Background from './Background'
 
 function Recipe(props){
     const [recipe, setRecipe] = useState({
@@ -69,8 +72,8 @@ function Recipe(props){
     
       useEffect(() =>{
         const count = parseInt(recipeHeight)/document.querySelector('#bkgImg').offsetHeight
-                let newBackground = new Array(Math.round(count)).fill(1)
-                setBackground(newBackground)
+        let newBackground = new Array(Math.round(count)).fill(1)
+        setBackground(newBackground)
     }, [recipeHeight])
     /*
     useEffect(()=>{
@@ -95,51 +98,11 @@ function Recipe(props){
             </CardSubtitle>
         </CardHeader>
         <Card style={{maxHeight: recipeHeight, overflow: 'hidden'}}>
-            <CardImg id='bkgImg' src={woodimage}/>
-            {background.map((flip, index) =>{
-
-                return <CardImg src={woodimage} style={{transform: `scaleY(${index % 2 === 1 ? 1 : -1})`}}/>
-            })}
+            <Background background={background} />
             <CardImgOverlay >
-        
-        <Card id='ingredients' style={{backgroundColor: 'rgba(0,0,0,.2)', borderColor: 'white', color: 'white'}}>
-            <CardHeader>
-                Ingredients
-            </CardHeader>
-            <CardBody>
-                <ListGroup>
-                    {recipe.ingredients.map(ingredient =>{
-                        return (
-                            <ListGroupItem style={{backgroundColor: 'rgba(0,0,0,.2)', color: 'white', borderColor: 'white'}}>
-                                {ingredient}
-                            </ListGroupItem>
-                        )
-                    })}
-                </ListGroup>
-            </CardBody>
-        </Card>
-        <Card id='instructions' style={{backgroundColor: 'rgba(0,0,0,.2)', borderColor: 'white', color: 'white'}}>
-            <CardHeader>
-                <CardTitle>
-                    Instructions
-                </CardTitle>
-            </CardHeader>
-            <CardBody style={{backgroundColor: 'rgba(0,0,0,.2)', borderColor: 'white', color: 'white'}}>
-                <ListGroup>
-                    {recipe.instructions.map((instruction, index) => {
-                        return (
-                            <ListGroupItem style={{display: "flex", backgroundColor: 'rgba(0,0,0,.2)', borderColor: 'white', color: 'white'}}>
-                                <div style={{marginRight: '10px'}}>
-                                    {index+1}.
-                                </div>
-                                <div>{instruction}</div>
-                            </ListGroupItem>
-                        )
-                    })}
-                </ListGroup>
-            </CardBody>
-        </Card>
-        </CardImgOverlay>
+                <Ingredients ingredients={recipe.ingredients} />
+                <Instructions instructions={recipe.instructions} /> 
+            </CardImgOverlay>
         </Card>
         
     </Card>

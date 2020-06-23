@@ -65,10 +65,6 @@
   background-size: cover;
 }
 
-.home-wrapper form .form-group{
-  width: 50%;
-}
-
 .home-wrapper form button {
   background-color: #1F6911;
   font-size: 1.1em;

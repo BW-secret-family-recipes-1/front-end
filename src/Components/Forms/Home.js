@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { Form, Label, Input } from 'reactstrap';
+import LabeledInput from './LabeledInput';
 
 const Home = (props) => {
 
@@ -46,27 +47,23 @@ const Home = (props) => {
        <h3 style={{ color: "red" }}>{error}</h3>
         {isLoading ? (<h1>Loading</h1>) : (
        <Form onSubmit={handleLogin}>
-         <Label>
-             Email
-             <Input
-           type="text"
-           placeholder="email"
-           name="email"
-          //  value={credentials.username}
-           value={credentials.email}
-           onChange={handleChange}
-         />
-         </Label>
-         <Label>
-            Password:
-             <Input
-           type="password"
-           placeholder="Password"
-           name="password"
-           value={credentials.password}
-           onChange={handleChange}
-         />
-         </Label>
+         <LabeledInput 
+          text='Email' 
+          name='email' 
+          type='text' 
+          change={handleChange} 
+          value={credentials.email}
+          feedback = ''
+        />
+        <LabeledInput 
+          text='Password' 
+          name='password' 
+          type='password' 
+          change={handleChange} 
+          value={credentials.password}
+          feedback=''
+        />
+         
          <button type="submit">Login</button>
        </Form>
      )}
