@@ -31,7 +31,7 @@ export default function App() {
           <Recipe />
         </Route>
         <Route path="/recipes">
-          <RecipeList user='-1' recipes={[]}/>
+          <RecipeList user='-1' />
         </Route>
         <PrivateRoute path="/user" component={User} />
         <Route path="/" component={Home} />

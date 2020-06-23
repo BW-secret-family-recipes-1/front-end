@@ -20,8 +20,8 @@ function User(props)  {
 
     useEffect(() => {
         axiosWithAuth() 
-            .get("")
-            // .get("https://xh84o.sse.codesandbox.io/api/login")
+            // .get("")
+            .get("https://xh84o.sse.codesandbox.io/api/login")
             .then((res) => {
                 console.log("ml: user.js: res: ", res.data);
                 setRecipes(res.data);
