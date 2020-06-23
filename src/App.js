@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import Home from './Components/Home';
-import Recipe from './Components/Recipe';
+import Home from './Components/Forms/Home';
+import Recipe from './Components/Recipe/Recipe';
 import User from './Components/User';
 import { Route, Link, Switch } from 'react-router-dom';
-import RecipeList from './Components/RecipeList';
-import Signup from './Components/Signup';
+import RecipeList from './Components/Recipe/RecipeList';
+import Signup from './Components/Forms/Signup';
 
 export default function App() {
   return (
@@ -34,7 +34,7 @@ export default function App() {
           <Recipe />
         </Route>
         <Route path="/recipes">
-          <RecipeList user='-1'/>
+          <RecipeList user='-1' recipes={[]}/>
         </Route>
         <Route path="/" component={Home} />
       </Switch>

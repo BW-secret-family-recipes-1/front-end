@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import Axios from 'axios'
-import { Card, CardHeader, CardSubtitle, ListGroup, ListGroupItem, ListGroupItemText, CardBody, CardTitle, CardImg, CardImgOverlay } from 'reactstrap'
+import { Card, CardHeader, CardSubtitle, CardTitle, CardImgOverlay } from 'reactstrap'
+
+import Instructions from './Instructions'
+import Ingredients from './Ingredients'
+import Background from './Background'
 
 function Recipe(props){
     const [recipe, setRecipe] = useState({
@@ -47,7 +51,8 @@ function Recipe(props){
             "blach"
         ]
     })
-
+    const [scale, setScale] = useState(1)
+    const [background, setBackground] = useState([]);
     const [recipeHeight, setRecipeHeight] = useState('100%');
 
     const params = useParams()
@@ -55,13 +60,30 @@ function Recipe(props){
     useEffect(()=>{
         setRecipeHeight(
             (document.querySelector('#ingredients').offsetHeight + document.querySelector('#instructions').offsetHeight) + 50 + 'px')
+            
+        function handleResize() {
+            setRecipeHeight(
+                (document.querySelector('#ingredients').offsetHeight + document.querySelector('#instructions').offsetHeight) + 50 + 'px'
+            )
+        }
+        window.addEventListener('resize', handleResize)
+        
+    }, [])
+    
+      useEffect(() =>{
+        const count = parseInt(recipeHeight)/document.querySelector('#bkgImg').offsetHeight
+        let newBackground = new Array(Math.round(count)).fill(1)
+        setBackground(newBackground)
+    }, [recipeHeight])
+    /*
+    useEffect(()=>{
         Axios.get(`dummy/${params.recipeid}`)
             .then(data =>{
-                /*
+                
                 setRecipe(data.data);
-                //*/
+                
             })
-    }, [])
+    }, [])//*/
     
 
     return (
@@ -76,50 +98,11 @@ function Recipe(props){
             </CardSubtitle>
         </CardHeader>
         <Card style={{maxHeight: recipeHeight, overflow: 'hidden'}}>
-            <CardImg  src={require('../Assets/woodboard.jpg')} />
-            <CardImg  src={require('../Assets/woodboard.jpg')} />
-            <CardImg  src={require('../Assets/woodboard.jpg')} />
-            <CardImg  src={require('../Assets/woodboard.jpg')} />
+            <Background background={background} />
             <CardImgOverlay >
-        
-        <Card id='ingredients' style={{backgroundColor: 'rgba(0,0,0,.2)', borderColor: 'white', color: 'white'}}>
-            <CardHeader>
-                Ingredients
-            </CardHeader>
-            <CardBody>
-                <ListGroup>
-                    {recipe.ingredients.map(ingredient =>{
-                        return (
-                            <ListGroupItem style={{backgroundColor: 'rgba(0,0,0,.2)', color: 'white', borderColor: 'white'}}>
-                                {ingredient}
-                            </ListGroupItem>
-                        )
-                    })}
-                </ListGroup>
-            </CardBody>
-        </Card>
-        <Card id='instructions' style={{backgroundColor: 'rgba(0,0,0,.2)', borderColor: 'white', color: 'white'}}>
-            <CardHeader>
-                <CardTitle>
-                    Instructions
-                </CardTitle>
-            </CardHeader>
-            <CardBody style={{backgroundColor: 'rgba(0,0,0,.2)', borderColor: 'white', color: 'white'}}>
-                <ListGroup>
-                    {recipe.instructions.map((instruction, index) => {
-                        return (
-                            <ListGroupItem style={{display: "flex", backgroundColor: 'rgba(0,0,0,.2)', borderColor: 'white', color: 'white'}}>
-                                <div style={{marginRight: '10px'}}>
-                                    {index+1}.
-                                </div>
-                                <div>{instruction}</div>
-                            </ListGroupItem>
-                        )
-                    })}
-                </ListGroup>
-            </CardBody>
-        </Card>
-        </CardImgOverlay>
+                <Ingredients ingredients={recipe.ingredients} />
+                <Instructions instructions={recipe.instructions} /> 
+            </CardImgOverlay>
         </Card>
         
     </Card>

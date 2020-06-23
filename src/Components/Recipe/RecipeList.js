@@ -3,7 +3,7 @@ import { Container, Row, Col, Card, CardImg, CardImgOverlay } from 'reactstrap';
 import { Link, useRouteMatch, useHistory } from 'react-router-dom';
 import RecipeLink from './RecipeLink';
 import axios from "axios";
-import { axiosWithAuth } from '../utils/axiosWithAuth';
+import { axiosWithAuth } from '../../utils/axiosWithAuth';
 
 const initialRecipe = {
     title:"", 

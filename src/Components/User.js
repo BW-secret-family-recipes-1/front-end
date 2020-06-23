@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
-import RecipeLink from './RecipeLink';
+import RecipeLink from './Recipe/RecipeLink';
 import { Jumbotron, Container, Card, CardImgOverlay, CardImg, Col, Row } from 'reactstrap';
-import RecipeList from './RecipeList';
+import RecipeList from './Recipe/RecipeList';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 
