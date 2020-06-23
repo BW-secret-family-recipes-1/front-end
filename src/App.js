@@ -15,10 +15,10 @@ export default function App() {
           <h1>Secret Family Recipes</h1>
         </div>
         <div className="nav-links">
-          <a href="https://hardcore-aryabhata-1f5562.netlify.app/" target="_blank">Home</a>
+          <a href="https://modest-lumiere-17a08c.netlify.app/" target="_blank">Home</a>
           <Link to="/">Log in / Log out</Link>
           <Link to="/signup">Sign up</Link>
-          <a href="https://hardcore-aryabhata-1f5562.netlify.app/about.html" target="_blank">About</a>
+          <a href="https://modest-lumiere-17a08c.netlify.app/" target="_blank">About</a>
           <Link to="/user">User Recipes</Link>
           <Link to="/recipes">Recipes</Link>
         </div>
