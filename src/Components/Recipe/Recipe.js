@@ -71,6 +71,9 @@ function Recipe(props){
     
       useEffect(() =>{
         const count = parseInt(recipeHeight)/document.querySelector('#bkgImg').offsetHeight
+        if(count === Infinity || count == undefined){
+            count = 0;
+        }
         let newBackground = new Array(Math.round(count)).fill(1)
         setBackground(newBackground)
     }, [recipeHeight])
