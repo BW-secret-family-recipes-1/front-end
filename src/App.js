@@ -6,6 +6,7 @@ import User from './Components/User';
 import { Route, Link, Switch } from 'react-router-dom';
 import RecipeList from './Components/Recipe/RecipeList';
 import Signup from './Components/Forms/Signup';
+import PrivateRoute from './utils/PrivateRoute';
 
 export default function App() {
   return (
@@ -19,7 +20,6 @@ export default function App() {
           <Link to="/">Log in / Log out</Link>
           <Link to="/signup" cy-data='signup'>Sign up</Link>
           <a href="https://modest-lumiere-17a08c.netlify.app/about" target="_blank">About</a>
-          <Link to="/user">User Recipes</Link>
           <Link to="/recipes">Recipes</Link>
         </div>
       </nav>
@@ -27,15 +27,13 @@ export default function App() {
         <Route path='/signup'>
           <Signup />
         </Route>
-        <Route path="/user">
-          <User />
-        </Route>
         <Route path="/recipes/:recipeid">
           <Recipe />
         </Route>
         <Route path="/recipes">
           <RecipeList user='-1' recipes={[]}/>
         </Route>
+        <PrivateRoute path="/user" component={User} />
         <Route path="/" component={Home} />
       </Switch>
       <div className="Footer">

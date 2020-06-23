@@ -1,8 +1,23 @@
 # front-end
 repo for front-end code
 
-## Deployment link
+## Deployment Link
 https://front-end-dusky.vercel.app/
+
+## Marketing Page Link
+https://modest-lumiere-17a08c.netlify.app/
+
+## Product Vision Document Link
+https://docs.google.com/document/d/1CmVWRNw8A6sKq6cRR6wdjM5xRnllukTxyelZz4gTEEY/edit
+
+## Trello Board Link
+https://trello.com/b/wg77XEUl/bw-secret-family-recipes-1
+
+## Build Week Rubric Link
+https://www.notion.so/Build-Week-Project-Rubrics-c0783f6d9b7e435f9ce47e8cd2d0ee3b
+
+
+# PVD
 
 This is the template for the Product Vision Document that teams complete after their initial icebreaker. The PVD is crucial to the planning phase and is mandatory for all groups to complete and submit to their Project Lead before starting their project.
 ☝️ Proposal
