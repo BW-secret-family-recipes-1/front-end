@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react'
 import * as Yup from 'yup'
 import { Form } from 'reactstrap'
 import LabeledInput from './LabeledInput'
+import ObjectForm from './ObjectForm'
+import { useHistory } from 'react-router-dom'
 
 function Signup(){
     const blank = {
@@ -15,6 +17,7 @@ function Signup(){
     const [user, setUser] = useState(blank)
     const [errors, setErrors] = useState(blank)
     const [valid, setValid] = useState(false)
+    const history = useHistory()
     const formSchema = Yup.object().shape({
         email: Yup
             .string()
@@ -66,6 +69,7 @@ function Signup(){
 
     function handleSubmit(e){
         e.preventDefault()
+        history.push('/user')
         //todo submit
     }
 
@@ -78,41 +82,20 @@ function Signup(){
     return (
     <div className="home-wrapper">
         <h2>Signup!</h2>
-        <Form>
-            <LabeledInput 
-                text='Email' 
-                name='email' 
-                type='text' 
-                change={handleChanges} 
-                value={user.email} 
-                feedback = {errors.email}
-            />
-            <LabeledInput 
-                text='Password' 
-                name='password' 
-                type='password' 
-                change={handleChanges} 
-                value={user.password}
-                feedback = {errors.password}
-            />
-            <LabeledInput 
-                text='First Name' 
-                name='first_name' 
-                type='text' 
-                change={handleChanges} 
-                value={user.first_name}
-                feedback = {errors.first_name}
-            />
-            <LabeledInput 
-                text='Last Name' 
-                name='last_name' 
-                type='text' 
-                change={handleChanges} 
-                value={user.last_name}
-                feedback = {errors.last_name}
-            />
-            <button type='submit' onClick={handleSubmit} disabled={!valid}>Sign up</button>
-        </Form>
+        <ObjectForm
+            object={user}
+            change={handleChanges}
+            submit={handleSubmit}
+            errors={errors}
+            types={{
+                email: 'text',
+                password: 'password',
+                first_name: 'text',
+                last_name: 'text'
+            }}
+            action= 'Sign Up!'
+        />
+            
     </div>)
 }
 
