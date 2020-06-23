@@ -4,6 +4,7 @@ import * as Yup from 'yup'
 import { Form } from 'reactstrap'
 import LabeledInput from './LabeledInput'
 import ObjectForm from './ObjectForm'
+import { useHistory } from 'react-router-dom'
 
 function Signup(){
     const blank = {
@@ -16,6 +17,7 @@ function Signup(){
     const [user, setUser] = useState(blank)
     const [errors, setErrors] = useState(blank)
     const [valid, setValid] = useState(false)
+    const history = useHistory()
     const formSchema = Yup.object().shape({
         email: Yup
             .string()
@@ -67,6 +69,7 @@ function Signup(){
 
     function handleSubmit(e){
         e.preventDefault()
+        history.push('/user')
         //todo submit
     }
 
