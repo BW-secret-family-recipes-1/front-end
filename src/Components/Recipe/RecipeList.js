@@ -13,9 +13,12 @@ const initialRecipe = {
     category:""
 }
 
-const RecipeList = ({ recipes, updateRecipes}) => {
+const RecipeList = ( {updateRecipes}) => {
     const match = useRouteMatch();
     const history = useHistory();
+
+    const [recipes, setRecipes] = useState([]);
+
     console.log("ml: recipelist.js: ", recipes);
     const [editing, setEditing] = useState(false);
     const [recipeToEdit, setRecipeToEdit] = useState(initialRecipe);
@@ -32,15 +35,22 @@ const RecipeList = ({ recipes, updateRecipes}) => {
         setRecipeToEdit(recipe);
     };
 
+    useEffect(() => {
+      axiosWithAuth()
+        .get(`https://xh84o.sse.codesandbox.io/api/recipes/`)
+        .then(res => {
+          setRecipes(res.data)
+        })
+    }, [])
     const saveEdit = e => {
         e.preventDefault();
         console.log("ml: recipelist.js: saveEdit: ", recipeToEdit)
         axiosWithAuth()
-            .put(``, recipeToEdit)
+            .put(`https://xh84o.sse.codesandbox.io/api/recipes/`, recipeToEdit)
             .then(res => {
                 console.log("ml: recipelist.js: saveEdit: res:", res)
                 console.log("ml: recipelist.js: saveEdit: res.data: ", res.data);
-                axiosWithAuth().get('')
+                axiosWithAuth().get('https://xh84o.sse.codesandbox.io/api/recipes/')
                     .then(res => {
                         updateRecipes(res.data)
                     })
@@ -55,11 +65,11 @@ const RecipeList = ({ recipes, updateRecipes}) => {
 
     const deleteRecipe = recipe => {
         axiosWithAuth()
-            .delete(``, recipe)
+            .delete(`https://xh84o.sse.codesandbox.io/api/recipes/`, recipe)
             .then(res => {
                 console.log("ml: recipelist.js: deleteRecipe: res: ", res);
                 console.log("ml: recipelist.js: deleteRecipe: res.data: ", res.data);
-                axiosWithAuth().get('')
+                axiosWithAuth().get('https://xh84o.sse.codesandbox.io/api/recipes/')
                     .then(res => {
                         updateRecipes(res.data)
                     })
@@ -76,9 +86,9 @@ const RecipeList = ({ recipes, updateRecipes}) => {
         e.preventDefault();
         console.log("ml: recipelist.js: addRecipe: ", newRecipe)
         axiosWithAuth()
-            .post('', newRecipe)
+            .post('https://xh84o.sse.codesandbox.io/api/recipes/', newRecipe)
             .then(res => {
-                axiosWithAuth().get('')
+                axiosWithAuth().get('https://xh84o.sse.codesandbox.io/api/recipes/')
                     .then(res => {
                         updateRecipes(res.data)
                     })
