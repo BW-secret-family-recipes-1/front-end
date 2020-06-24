@@ -3,7 +3,7 @@ import { Label, Input, FormGroup, FormFeedback } from 'reactstrap'
 
 function LabeledInput({ text, name, type, change, value, feedback }){
     return (
-        <FormGroup for={name}  style={{width: '100%'}}>
+        <FormGroup for={name}  style={{width: '50%', margin: 'auto 25%'}}>
         <Label  style={{width: '100%'}}>
             {text}:
              <Input  style={{width: '100%'}}

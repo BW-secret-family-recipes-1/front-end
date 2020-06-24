@@ -2,7 +2,7 @@ import { useState } from "react";
 import * as yup from "yup";
 
 export default function useForm(initialValues, formSchema) {
-    const [user, setUser] = useState(initialValues);
+    const [values, setValues] = useState(initialValues);
     const [errors, setErrors] = useState(initialValues);
 
     const handleChanges = e => {
@@ -23,15 +23,14 @@ export default function useForm(initialValues, formSchema) {
             });
         });
 
-        setUser({
-            ...user,
+        setValues({
+            ...values,
             [e.target.name]: e.target.name === "user" ? [e.target.user] : e.target.user
         });
     }
     const clearForm = () => {
-        setUser(initialValues);
+        setValues(initialValues);
     }
 
-    return [values, handleChanges, formErrors, clearForm];
-}
+    return [values, handleChanges, errors, clearForm, setValues];
 }

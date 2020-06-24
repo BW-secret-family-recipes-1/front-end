@@ -40,12 +40,14 @@ function ObjectForm({object, change, submit, errors, types, action}){
             {
                 inputs.map(input => input)
             }
-            {
-                action.map(button =>{
-                    return <button type='submit' onClick={button.submit} disabled={Object.values(errors).filter(val => val !== '').length > 0}>{button.text}</button>
-                })
-                
-            }
+            <div style={{width: '50%', margin: 'auto 25%'}}>
+                {
+                    action.map(button =>{
+                        return <button type='submit' onClick={button.submit} disabled={Object.values(errors).filter(val => val !== '').length > 0}>{button.text}</button>
+                    })
+                    
+                }
+            </div>
         </Form>
     )
 }
