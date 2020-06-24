@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, CardImg, CardHeader, CardImgOverlay, CardBody, CardSubtitle } from 'reactstrap';
-import { Link, useRouteMatch, useHistory } from 'react-router-dom';
-import RecipeLink from './RecipeLink';
-import axios from "axios";
+import { Link, useHistory } from 'react-router-dom';
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
 import cuttingboard from '../../Assets/cuttingboard.png'
 import ObjectForm from '../Forms/ObjectForm';
@@ -16,7 +14,6 @@ const initialRecipe = {
 }
 
 const RecipeList = ( {updateRecipes}) => {
-    const match = useRouteMatch();
     const history = useHistory();
 
     const [recipes, setRecipes] = useState([

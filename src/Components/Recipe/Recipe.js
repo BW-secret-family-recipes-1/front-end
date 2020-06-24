@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import Axios from 'axios'
 import { Card, CardHeader, CardSubtitle, CardTitle, CardImgOverlay, CardImg } from 'reactstrap'
 import woodimage from '../../Assets/woodboard.jpg'
 import Instructions from './Instructions'
@@ -50,11 +48,8 @@ function Recipe(props){
             "blach"
         ]
     })
-    const [scale, setScale] = useState(1)
     const [background, setBackground] = useState([]);
     const [recipeHeight, setRecipeHeight] = useState('100%');
-
-    const params = useParams()
 
     useEffect(()=>{
         setRecipeHeight(
