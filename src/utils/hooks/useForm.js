@@ -1,5 +1,5 @@
 import { useState } from "react";
-import * yup from "yup";
+import * as yup from "yup";
 
 export default function useForm(initialValues, formSchema) {
     const [user, setUser] = useState(initialValues);

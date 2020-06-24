@@ -23,6 +23,7 @@ const RecipeList = ( {updateRecipes}) => {
       {title: 'Recipe 1', source: 'meemaw', ingredients: '', instructions: '', category: 'chicken', id: 1},
       {title: 'Recipe 1', source: 'meemaw', ingredients: '', instructions: '', category: 'chicken', id: 1},
       {title: 'Recipe 1', source: 'meemaw', ingredients: '', instructions: '', category: 'chicken', id: 1},
+      {title: 'Recipe 1', source: 'meemaw', ingredients: '', instructions: '', category: 'chicken', id: 1},
       {title: 'Recipe 1', source: 'meemaw', ingredients: '', instructions: '', category: 'chicken', id: 1}
     ]);
 

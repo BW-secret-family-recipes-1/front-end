@@ -89,7 +89,7 @@ const Signup = props => {
                 first_name: 'text',
                 last_name: 'text'
             }}
-            action= {'Sign Up!'}
+            action= {[{text: 'Sign Up!', action: hand}]}
         />
             
     </div>)
