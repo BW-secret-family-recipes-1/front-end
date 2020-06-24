@@ -44,7 +44,7 @@ const Home = (props) => {
      
      <div className="home-wrapper">
        <h2>Log In to See Recipe's</h2>
-       <h3 style={{ color: "red" }}>{error}</h3>
+       <h3 cy-data='error' style={{ color: "red" }}>{error}</h3>
         {isLoading ? (<h1>Loading</h1>) : (
        <Form onSubmit={handleLogin}>
          <LabeledInput 
