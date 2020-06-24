@@ -3,10 +3,10 @@ import { Label, Input, FormGroup, FormFeedback } from 'reactstrap'
 
 function LabeledInput({ text, name, type, change, value, feedback }){
     return (
-        <FormGroup for={name}>
-        <Label>
+        <FormGroup for={name}  style={{width: '100%'}}>
+        <Label  style={{width: '100%'}}>
             {text}:
-             <Input
+             <Input  style={{width: '100%'}}
            type={type}
            placeholder={text}
            name={name}

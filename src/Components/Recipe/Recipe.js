@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import Axios from 'axios'
-import { Card, CardHeader, CardSubtitle, CardTitle, CardImgOverlay } from 'reactstrap'
-
+import { Card, CardHeader, CardSubtitle, CardTitle, CardImgOverlay, CardImg } from 'reactstrap'
+import woodimage from '../../Assets/woodboard.jpg'
 import Instructions from './Instructions'
 import Ingredients from './Ingredients'
-import Background from './Background'
 
 function Recipe(props){
     const [recipe, setRecipe] = useState({
@@ -71,7 +70,10 @@ function Recipe(props){
     }, [])
     
       useEffect(() =>{
-        const count = parseInt(recipeHeight)/document.querySelector('#bkgImg').offsetHeight
+        let count = parseInt(recipeHeight)/document.querySelector('#bkgImg').offsetHeight
+        if(count === Infinity || count == undefined){
+            count = 0;
+        }
         let newBackground = new Array(Math.round(count)).fill(1)
         setBackground(newBackground)
     }, [recipeHeight])
@@ -98,7 +100,10 @@ function Recipe(props){
             </CardSubtitle>
         </CardHeader>
         <Card style={{maxHeight: recipeHeight, overflow: 'hidden'}}>
-            <Background background={background} />
+            <CardImg id='bkgImg' src={woodimage}/>
+            {background.map((flip, index) =>{
+                return <CardImg src={woodimage} style={{transform: `scaleY(${index % 2 === 1 ? 1 : -1})`}}/>
+            })}
             <CardImgOverlay >
                 <Ingredients ingredients={recipe.ingredients} />
                 <Instructions instructions={recipe.instructions} /> 
