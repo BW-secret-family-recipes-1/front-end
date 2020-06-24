@@ -15,7 +15,7 @@ const Home = (props) => {
    e.preventDefault();
    setIsLoading(true);
    axios
-     .post("https://xh84o.sse.codesandbox.io/api/login", credentials)
+     .post("https://secret-family-recipes1.herokuapp.com/api/auth/login", credentials)
     //  .post("", credentials)
      .then((res) => {
        setTimeout(() => {

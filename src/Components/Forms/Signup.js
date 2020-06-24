@@ -1,19 +1,23 @@
 
-import React, { useState, useEffect } from 'react'
+
+import React, { useState, useEffect } from 'react';
+import useForm from '../../utils/hooks/useForm';
+import { useDispatch, useSelector } from "react-redux";
+import { Form } from 'reactstrap';
+import LabeledInput from './LabeledInput';
+import { getToken } from '../../Components/Forms/Home';
 import * as Yup from 'yup'
-import { Form } from 'reactstrap'
-import LabeledInput from './LabeledInput'
 import ObjectForm from './ObjectForm'
 import { useHistory } from 'react-router-dom'
 
-function Signup(){
-    const blank = {
-        email: '',
-        password: '',
-        first_name: '',
-        last_name: ''
-    }
+const initialValues = {
+    email: '',
+    password: '',
+    first_name: '',
+    last_name: ''
+}
 
+const Signup = props => {
     const [user, setUser] = useState(blank)
     const [errors, setErrors] = useState(blank)
     const [valid, setValid] = useState(false)
@@ -40,44 +44,36 @@ function Signup(){
             .required()
     })
 
-    function validate(e){
-        Yup.reach(formSchema, e.target.name)
-        .validate(e.target.value)
-        .then(valid =>{
-            setErrors({
-                ...errors,
-                [e.target.name]: ''
-            })
+    const dispatch = useDispatch();
+    const { isFetching, error } = useSelector(state => state.login);
+    const [loginError, setLoginError] = useState("");
+    const [values, handleChanges, formErrors] = useForm(initialValues);
 
-        })
-        .catch(err =>{
-            setErrors({
-                ...errors,
-                [e.target.name]: err.errors[0]
-            })
-        })
-    }
+    const handleSubmit = (e) => {
+        e.preventDefault();
 
-    function handleChanges(e) {
-        e.persist()
-        validate(e)
-        setUser({
-            ...user, 
-            [e.target.name]: e.target.value
-        })
-    }
+        const newData = {
+            email: values.email,
+            password: values.password,
+            first_name: values.first_name,
+            last_name: values.last_name
+        };
+        console.log("ml: signup.js: handlesubmit: ", newData);
+        dispatch(getToken(newData));
+    };
 
-    function handleSubmit(e){
-        e.preventDefault()
-        history.push('/user')
-        //todo submit
-    }
+    useEffect(() => {
+        if('https://secret-family-recipes1.herokuapp.com/api/auth/register'.getItem("token")) {
+            const userData = JSON.parse
+            ('https://secret-family-recipes1.herokuapp.com/api/auth/register'.getItem("user"));
+        } else {
+            setLoginError("Please fill out all fields");
+            'https://secret-family-recipes1.herokuapp.com/api/auth/register'.removeItem("token");
+            'https://secret-family-recipes1.herokuapp.com/api/auth/register'.removeItem("user");
+        }
+    },
 
-    useEffect(() =>{
-        formSchema.isValid(user).then(res =>{
-            setValid(res)
-        })
-    }, [user])
+    [dispatch, isFetching, props.history]) ;
 
     return (
     <div className="home-wrapper">

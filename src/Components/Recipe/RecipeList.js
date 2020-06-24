@@ -65,11 +65,11 @@ const RecipeList = ( {updateRecipes}) => {
 
     const deleteRecipe = recipe => {
         axiosWithAuth()
-            .delete(`https://xh84o.sse.codesandbox.io/api/recipes/`, recipe)
+            .delete(`https://secret-family-recipes1.herokuapp.com/api/recipes/`, recipe)
             .then(res => {
                 console.log("ml: recipelist.js: deleteRecipe: res: ", res);
                 console.log("ml: recipelist.js: deleteRecipe: res.data: ", res.data);
-                axiosWithAuth().get('https://xh84o.sse.codesandbox.io/api/recipes/')
+                axiosWithAuth().get('https://secret-family-recipes1.herokuapp.com/api/recipes/')
                     .then(res => {
                         updateRecipes(res.data)
                     })
@@ -86,9 +86,9 @@ const RecipeList = ( {updateRecipes}) => {
         e.preventDefault();
         console.log("ml: recipelist.js: addRecipe: ", newRecipe)
         axiosWithAuth()
-            .post('https://xh84o.sse.codesandbox.io/api/recipes/', newRecipe)
+            .post('https://secret-family-recipes1.herokuapp.com/api/recipes/', newRecipe)
             .then(res => {
-                axiosWithAuth().get('https://xh84o.sse.codesandbox.io/api/recipes/')
+                axiosWithAuth().get('https://secret-family-recipes1.herokuapp.com/api/recipes/')
                     .then(res => {
                         updateRecipes(res.data)
                     })

@@ -20,8 +20,7 @@ function User(props)  {
 
     useEffect(() => {
         axiosWithAuth() 
-            // .get("")
-            .get("https://xh84o.sse.codesandbox.io/api/login")
+            .get("https://secret-family-recipes1.herokuapp.com/api/auth/login")
             .then((res) => {
                 console.log("ml: user.js: res: ", res.data);
                 setRecipes(res.data);
@@ -35,6 +34,7 @@ function User(props)  {
         <Jumbotron>
             <h1 className='display-3'>{user.first_name} {user.last_name}'s Family Recipes!</h1>
             <hr className='my-2'></hr>
+            {/* <button className="button" onClick = {() => {signOut()}}>Sign Out</button> */}
             <RecipeList user={user.id}/>
         </Jumbotron>
     )
