@@ -1,10 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
 import useForm from '../../utils/hooks/useForm';
-import { useDispatch, useSelector } from "react-redux";
 import { Form } from 'reactstrap';
 import LabeledInput from './LabeledInput';
-import { getToken } from '../../Components/Forms/Home';
+import { axiosWithAuth } from '../../utils/axiosWithAuth';
 
 const initialValues = {
     email: '',
@@ -13,76 +12,61 @@ const initialValues = {
     last_name: ''
 }
 
-const Signup = props => {
+const Signup = ( {updateUser} ) => {
 
-    const dispatch = useDispatch();
-    const { isFetching, error } = useSelector(state => state.login);
-    const [loginError, setLoginError] = useState("");
-    const [values, handleChanges, formErrors] = useForm(initialValues);
+    const [credentials, setCredentials] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState("");
 
-    const handleSubmit = (e) => {
+    const addUser = (e) => {
         e.preventDefault();
-
-        const newData = {
-            email: values.email,
-            password: values.password,
-            first_name: values.first_name,
-            last_name: values.last_name
-        };
-        console.log("ml: signup.js: handlesubmit: ", newData);
-        dispatch(getToken(newData));
+        console.log(newUser)
+        axiosWithAuth()
+            .post('https://secret-family-recipes1.herokuapp.com/api/auth/register', newUser)
+            .then(res => {
+                axiosWithAuth().get('https://secret-family-recipes1.herokuapp.com/api/auth/login/')
+                    .then(res => {
+                        updateUser(res.data)
+                    })
+                    .catch(err => console.log(err))
+                    console.log(res.data.payload);
+            })
+            .catch(err => {
+                console.log(err);
+            })
     };
 
-    useEffect(() => {
-        if('https://secret-family-recipes1.herokuapp.com/api/auth/register'.getItem("token")) {
-            const userData = JSON.parse
-            ('https://secret-family-recipes1.herokuapp.com/api/auth/register'.getItem("user"));
-        } else {
-            setLoginError("Please fill out all fields");
-            'https://secret-family-recipes1.herokuapp.com/api/auth/register'.removeItem("token");
-            'https://secret-family-recipes1.herokuapp.com/api/auth/register'.removeItem("user");
-        }
-    },
-
-    [dispatch, isFetching, props.history]) ;
+    const [newUser, handleChange ] = useForm(initialValues);
 
     return (
     <div className="home-wrapper">
         <h2>Signup!</h2>
-        <Form>
+       <Form onSubmit={(e) => addUser(e)}>
             <LabeledInput 
                 text='Email' 
                 name='email' 
                 type='text' 
-                change={handleChanges} 
-                value={user.email} 
-                feedback = {errors.email}
+                onChange={(e) => handleChange(e)}
             />
             <LabeledInput 
                 text='Password' 
                 name='password' 
                 type='password' 
-                change={handleChanges} 
-                value={user.password}
-                feedback = {errors.password}
+                onChange={(e) => handleChange(e)}
             />
             <LabeledInput 
                 text='First Name' 
                 name='first_name' 
                 type='text' 
-                change={handleChanges} 
-                value={user.first_name}
-                feedback = {errors.first_name}
+                onChange={(e) => handleChange(e)}
             />
             <LabeledInput 
                 text='Last Name' 
                 name='last_name' 
                 type='text' 
-                change={handleChanges} 
-                value={user.last_name}
-                feedback = {errors.last_name}
+                onChange={(e) => handleChange(e)}
             />
-            <button type='submit' onClick={handleSubmit} disabled={!valid}>Sign up</button>
+            <button type='submit'>Sign up</button>
         </Form>
     </div>)
 }
