@@ -4,17 +4,20 @@ context('user can login', () => {
     })
     it('types an email', ()=>{
         cy.get('#email')
-        .type('admin@secretrecipes.com')
-        .should('have.value', 'admin@secretrecipes.com')
+        .type('testing@email.com')
+        .should('have.value', 'testing@email.com')
     })
     it('types a password', ()=>{
         cy.get('#password')
-        .type('hunter2')
-        .should('have.value', 'hunter2')
+        .type('i<3Lambd4')
+        .should('have.value', 'i<3Lambd4')
     })
     it('clicks the submit button', ()=>{
         cy.get('[type=submit]')
         .click()
+
+        cy.url()
+        .should('include', 'user')
     })
     
 });
@@ -28,7 +31,7 @@ context('user can sign up', ()=>{
     })
     it('enters an email', ()=>{
         cy.get('#email')
-        .type('admin@secretrecipes.com')
+        .type('testing@email.com')
     })
     it('enters a password', ()=>{
         cy.get('#password')

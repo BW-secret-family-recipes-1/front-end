@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Card, CardImg, CardImgOverlay } from 'reactstrap';
+import { Container, Row, Col, Card, CardImg, CardHeader, CardImgOverlay, CardBody, CardSubtitle } from 'reactstrap';
 import { Link, useRouteMatch, useHistory } from 'react-router-dom';
 import RecipeLink from './RecipeLink';
 import axios from "axios";
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
+import cuttingboard from '../../Assets/cuttingboard.png'
+import ObjectForm from '../Forms/ObjectForm';
 
 const initialRecipe = {
     title:"", 
@@ -17,23 +19,37 @@ const RecipeList = ( {updateRecipes}) => {
     const match = useRouteMatch();
     const history = useHistory();
 
-    const [recipes, setRecipes] = useState([]);
+    const [recipes, setRecipes] = useState([
+      {title: 'Recipe 1', source: 'meemaw', ingredients: '', instructions: '', category: 'chicken', id: 1},
+      {title: 'Recipe 1', source: 'meemaw', ingredients: '', instructions: '', category: 'chicken', id: 1},
+      {title: 'Recipe 1', source: 'meemaw', ingredients: '', instructions: '', category: 'chicken', id: 1},
+      {title: 'Recipe 1', source: 'meemaw', ingredients: '', instructions: '', category: 'chicken', id: 1}
+    ]);
 
     console.log("ml: recipelist.js: ", recipes);
     const [editing, setEditing] = useState(false);
     const [recipeToEdit, setRecipeToEdit] = useState(initialRecipe);
+    const [clicked, setClicked] = useState({})
+    const [add, setAdd] = useState(false)
     const [newRecipe, setNewRecipe] = useState({
         title:"", 
         source:"", 
         ingredients:"", 
         instructions: "", 
         category:""
+
     });
 
-    const editRecipe = recipe => {
+    const editRecipe = (recipe) => {
+        setRecipeToEdit(recipe)
+        setClicked({})
         setEditing(true);
-        setRecipeToEdit(recipe);
     };
+    const recipeClicked = recipe => {
+      if(!editing){
+        setClicked(clicked === recipe ? {} : recipe);
+      }
+    }
 
     useEffect(() => {
       axiosWithAuth()
@@ -44,6 +60,8 @@ const RecipeList = ( {updateRecipes}) => {
     }, [])
     const saveEdit = e => {
         e.preventDefault();
+        
+        setEditing(false)
         console.log("ml: recipelist.js: saveEdit: ", recipeToEdit)
         axiosWithAuth()
             .put(`https://xh84o.sse.codesandbox.io/api/recipes/`, recipeToEdit)
@@ -107,116 +125,117 @@ const RecipeList = ( {updateRecipes}) => {
     return (
         <div className="recipe-wrapper">
       <div className="recipe-list">
-      <p>Recipes</p>
-      <ul>
-        {recipes.map(recipe => (
-          <li key={recipe.title} onClick={() => editRecipe(recipe)}>
-            <span>
-              <span className="delete" onClick={e => {
-                    e.stopPropagation();
-                    deleteRecipe(recipe)
-                  }
-                }>
-                  x
-              </span>{" "}
-              {recipe.title}
-            </span>
-          </li>
-        ))}
-      </ul>
-      {editing && (
-        <form onSubmit={saveEdit}>
-          <legend>Edit Recipe</legend>
-          <label>
-            Recipe Title:
-            <input
-              onChange={e =>
-                setRecipeToEdit({ ...recipeToEdit, title: e.target.value })
-              }
-              value={recipeToEdit.title}
+        <h1>Recipes</h1>
+        <button onClick={()=> setAdd(true)}>Add New Recipe</button>
+        {add && (
+          <div className="recipe-add">
+            <legend>Add New Recipe</legend>
+            <ObjectForm
+              object={newRecipe}
+              change={handleChange}
+              submit={addRecipe}
+              errors={{
+                title: '',
+                source: '',
+                ingredients: '',
+                instructions: '',
+                category: ''
+              }}
+              types={{
+                title: 'text',
+                source: 'text',
+                ingredients: 'textarea',
+                instructions: 'textarea',
+                category: 'text'
+              }}
+              action={[
+                {
+                  text: 'Save',
+                  submit: addRecipe
+                }, 
+                {
+                  text: 'Cancel', 
+                  submit: ()=> setAdd(false)
+                }
+              ]}
             />
-          </label>
-          <label>
-            Source:
-            <input
-              onChange={e =>
-                setRecipeToEdit({ ...recipeToEdit, source: e.target.value })
-              }
-              value={recipeToEdit.source}
-            />
-          </label>
-          <label>
-            Ingredients:
-            <input
-              onChange={e =>
-                setRecipeToEdit({ ...recipeToEdit, ingredients: e.target.value })
-              }
-              value={recipeToEdit.ingredients}
-            />
-          </label>
-          <label>
-            Intructions:
-            <input
-              onChange={e =>
-                setRecipeToEdit({ ...recipeToEdit, instructions: e.target.value })
-              }
-              value={recipeToEdit.instructions}
-            />
-          </label>
-          <label>
-            Category:
-            <input
-              onChange={e =>
-                setRecipeToEdit({ ...recipeToEdit, category: e.target.value })
-              }
-              value={recipeToEdit.category}
-            />
-          </label>
-          <div className="button-row">
-            <button type="submit">save</button>
-            <button onClick={() => setEditing(false)}>cancel</button>
           </div>
-        </form>
-      )}
+        )}
+        {editing && (
+          <div className='edit'>
+            <legend>Edit Recipe</legend>
+              <ObjectForm 
+                object={recipeToEdit}
+                change={(e)=> setRecipeToEdit({...recipeToEdit, [e.target.name]: e.target.value})}
+                submit={saveEdit}
+                errors={{
+                  title: '',
+                  source: '',
+                  ingredients: '',
+                  instructions: '',
+                  category: ''
+                }}
+                types={{
+                  title: 'text',
+                  source: 'text',
+                  ingredients: 'textarea',
+                  instructions: 'textarea',
+                  category: 'text'
+                }}
+                action={[
+                  {
+                    text: 'Save', 
+                    submit: saveEdit
+                  }, 
+                  {
+                    text: 'Cancel', 
+                    submit: ()=> setEditing(false)
+                  }
+                ]}
+              />
+          </div>
+        )}
+      <Container>
+        <Row sm='5'>
+        {recipes.map(recipe => (
+          <Col>
+          <Card onClick={(e) => { 
+            e.stopPropagation()
+            recipeClicked(recipe)}}>
+            <CardImg src={cuttingboard} />
+            <CardImgOverlay>
+              <CardHeader style={{'paddingBottom': '0px'}}>
+                <h3>{recipe.title}</h3>
+              </CardHeader>
+              <CardBody>
+                <p>By {recipe.source}</p>
+                <p>Category: {recipe.category}</p>
+              </CardBody>
+              <CardSubtitle>
+              {clicked === recipe && (
+              <div style={{display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>
+                <Link to={`/recipes/${recipe.id}`}><button type='submit'>View</button></Link>
+                <button className='' type='submit' onClick={()=> editRecipe(recipe)}>Edit</button>
+                <button className='delete' onClick={e => {
+                  e.stopPropagation()
+                  deleteRecipe(recipe)
+                }}>Delete</button>
+              </div>
+            )}
+              </CardSubtitle>
+            </CardImgOverlay>
+          </Card>
+          </Col>
+          
+        ))}
+        
+        </Row>
+      </Container>
+      
+      
       </div>
       <div className="spacer" />
-      <div className="recipe-add">
-      <form onSubmit={(e) => addRecipe(e)}>
-        <p>Add Recipe</p>
-        <p>Title:</p>
-        <input
-          type='text'
-          name='title'
-          onChange={(e) => handleChange(e)}
-        />
-        <p>Source:</p>
-        <input
-          type='text'
-          name='source'
-          onChange={(e) => handleChange(e)}
-        />
-        <p>Ingredients:</p>
-        <input
-          type='text'
-          name='ingredients'
-          onChange={(e) => handleChange(e)}
-        />
-        <p>Instructions:</p>
-        <input
-          type='text'
-          name='instructions'
-          onChange={(e) => handleChange(e)}
-        />
-        <p>Category:</p>
-        <input
-          type='text'
-          name='category'
-          onChange={(e) => handleChange(e)}
-        />
-        <p></p>
-        <button>Add Recipe</button>
-      </form>
-      </div>
+      
     </div>
     )
 };
