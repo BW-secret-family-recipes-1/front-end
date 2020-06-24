@@ -70,7 +70,7 @@ function Recipe(props){
     }, [])
     
       useEffect(() =>{
-        const count = parseInt(recipeHeight)/document.querySelector('#bkgImg').offsetHeight
+        let count = parseInt(recipeHeight)/document.querySelector('#bkgImg').offsetHeight
         if(count === Infinity || count == undefined){
             count = 0;
         }

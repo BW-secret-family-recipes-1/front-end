@@ -30,6 +30,28 @@
   font-size: 2rem;
 }
 
+.recipe-list h1{
+  font-family: 'Charmonman', cursive;
+}
+
+
+.card-header h3{
+  color: white;
+  font-family: 'Charmonman', cursive;
+  
+}
+
+.card-body p{
+  color: white;
+  margin-bottom: 0px;
+}
+
+.card-subtitle div button{
+  font-size: 1rem;
+  font-family: 'Alegreya Sans', sans serif;
+  height: 75px;
+}
+
 .card-img-overlay a:hover{
   text-decoration: none;
   color: black;

@@ -18,6 +18,8 @@ function ObjectForm({object, change, submit, errors, types, action}){
             text = text.reduce((res, val) =>{
                 return res = res + val
             }, " ")
+            if(prop !== 'id')
+            {
             newInputs.push(
                 <LabeledInput 
                     text= {text}
@@ -28,16 +30,22 @@ function ObjectForm({object, change, submit, errors, types, action}){
                     feedback={errors[prop]}
                 />
             )
+            }
         }
         setInputs(newInputs)
     }, [object])
 
     return (
-        <Form onSubmit={submit}>
+        <Form onSubmit={(e) => e.preventDefault()}>
             {
                 inputs.map(input => input)
             }
-            <button type='submit' onClick={submit} disabled={Object.values(errors).filter(val => val !== '').length > 0}>{action}</button>
+            {
+                action.map(button =>{
+                    return <button type='submit' onClick={button.submit} disabled={Object.values(errors).filter(val => val !== '').length > 0}>{button.text}</button>
+                })
+                
+            }
         </Form>
     )
 }
