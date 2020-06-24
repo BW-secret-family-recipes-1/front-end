@@ -31,28 +31,28 @@ const RecipeList = ( {updateRecipes}) => {
     const [clicked, setClicked] = useState({})
     const [add, setAdd] = useState(false)
 
-    {/* I'm terrible at regex... tried to come up with a regex for an ingredient pattern, but failed */}
+    
     const recipeSchema = Yup.object().shape({
       title: Yup
         .string()
-        .required('Must enter a recipe title')
-        .min(2, 'Recipe Title must be at least two characters long'),
+        .min(2, 'Recipe Title must be at least two characters long')
+        .required('Must enter a recipe title'),
       source: Yup
         .string()
         .required('Please enter a source for this recipe'),
-        
+      /* I'm terrible at regex... tried to come up with a regex for an ingredient pattern, but failed */
       ingredients: Yup
         .string()
-        .required('Please enter at least one ingredient')
-        .min(2),
+        .min(2)
+        .required('Please enter at least one ingredient'),
       instructions: Yup
         .string()
-        .required('Please enter at least one instruction')
-        .min(2),
+        .min(2)
+        .required('Please enter at least one instruction'),
       category: Yup
         .string()
-        .required('Please enter a category for your recipe')
         .min(2)
+        .required('Please enter a category for your recipe')
     })
 
     const [newRecipe, newRecipeChange, newRecipeErrors, newRecipeClear, setNewRecipe] = useForm(
@@ -169,11 +169,11 @@ const RecipeList = ( {updateRecipes}) => {
               action={[
                 {
                   text: 'Save',
-                  submit: addRecipe
+                  action: addRecipe
                 }, 
                 {
                   text: 'Cancel', 
-                  submit: ()=> setAdd(false)
+                  action: ()=> setAdd(false)
                 }
               ]}
             />
@@ -197,11 +197,11 @@ const RecipeList = ( {updateRecipes}) => {
                 action={[
                   {
                     text: 'Save', 
-                    submit: saveEdit
+                    action: saveEdit
                   }, 
                   {
                     text: 'Cancel', 
-                    submit: ()=> setEditing(false)
+                    action: ()=> setEditing(false)
                   }
                 ]}
               />
@@ -210,7 +210,7 @@ const RecipeList = ( {updateRecipes}) => {
         <Container>
         <Row sm='5'>
         {recipes.map(recipe => (
-          <Col>
+          <Col sm='12' md='6' lg='3'>
           <Card onClick={(e) => { 
             e.stopPropagation()
             recipeClicked(recipe)}}>
