@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Label, Input, FormGroup, FormFeedback } from 'reactstrap'
 
 function LabeledInput({ text, name, type, change, value, feedback }){
+
+    const [valid, setValid] = useState(feedback === '')
+
+    useEffect(()=>{
+      setValid(feedback === '')
+    }, [feedback])
+
     return (
         <FormGroup for={name} >
         <Label  style={{width: '100%'}}>
@@ -13,10 +20,10 @@ function LabeledInput({ text, name, type, change, value, feedback }){
            value={value}
            onChange={change}
            id={name}
-           valid={feedback === '' ? true : false}
-           invalid={feedback === '' ? false : true}
+           valid={valid ? true : false}
+           invalid={valid ? false : true}
          />
-         <FormFeedback valid={feedback === '' ? true : false} invalid={feedback === '' ? false : true}>{feedback}</FormFeedback>
+         <FormFeedback valid={valid ? true : false} invalid={valid ? false : true}>{feedback}</FormFeedback>
          </Label>
          </FormGroup>
     )

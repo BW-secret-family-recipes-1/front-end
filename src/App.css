@@ -30,7 +30,7 @@
   background-color: #C49069;
 }
 
-form {
+.form-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -111,7 +111,7 @@ form {
   background-color: #C49069;
 }
 
-.login-form-wrapper form,
+/* .login-form-wrapper form,
 .signup-form-wrapper form {
   border: 4px groove #1F6911;
   margin-bottom: 1em;
@@ -122,11 +122,8 @@ form {
   width: 60%;
   background-image: url(./Assets/cuttingboard.png);
   background-size: cover;
-}
-.form-group{
-  width: 50%;
-  margin: auto 25%;
-}
+} */
+
 @media (max-width: 768px){
   .login-form-wrapper form,
   .signup-form-wrapper form{

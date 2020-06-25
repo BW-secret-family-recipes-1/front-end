@@ -18,7 +18,7 @@ function ObjectForm({object, change, submit, errors, types, action}){
             text = text.reduce((res, val) =>{
                 return res = res + val
             }, " ")
-            if(prop !== 'id')
+            if(prop !== 'id' && prop !== 'passwordMatch')
             {
             newInputs.push(
                 <LabeledInput 
@@ -36,7 +36,7 @@ function ObjectForm({object, change, submit, errors, types, action}){
     }, [object, errors])
 
     return (
-        <Form onSubmit={(e) => e.preventDefault()}>
+        <Form onSubmit={(e) => {e.preventDefault(); submit(e)}}>
             {
                 inputs.map(input => input)
             }
