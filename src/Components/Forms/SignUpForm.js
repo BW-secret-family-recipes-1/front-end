@@ -3,6 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { signUp } from "../../utils/actions";
 import ObjectForm from './ObjectForm';
+import * as yup from 'yup'
 
 class SignUpForm extends React.Component {
     state = {
@@ -20,8 +21,40 @@ class SignUpForm extends React.Component {
         last_name: ''
     }
 
+    formSchema = yup.object().shape({
+      email: yup
+        .string()
+        .email()
+        .required("Must enter an email"),
+      password: yup
+        .string()
+        .required('must enter a password'),
+      confirm_password: yup
+        .string()
+        .test('match', 'Passwords must match', (confirm_password)=> {debugger; return confirm_password === this.state.password}),
+      first_name: yup
+        .string()
+        .required('Please enter a first name'),
+      last_name: yup
+        .string()
+        .required('Please enter a last name')
+    })
+
+    validate(e){
+      yup.reach(this.formSchema, e.target.name)
+          .validate(e.target.value)
+          .then(valid =>{
+            this.errors = {...this.errors, [e.target.name]: ''}
+          })
+          .catch(err =>{
+            this.errors = {...this.errors, [e.target.name]: err.errors[0]}
+          })
+        
+    }
+
     handleChanges = e => {
         e.persist();
+        this.validate(e)
         this.setState({
           [e.target.name]: e.target.value
         });

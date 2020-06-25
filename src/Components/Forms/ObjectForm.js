@@ -33,7 +33,7 @@ function ObjectForm({object, change, submit, errors, types, action}){
             }
         }
         setInputs(newInputs)
-    }, [object])
+    }, [object, errors])
 
     return (
         <Form onSubmit={(e) => e.preventDefault()}>
