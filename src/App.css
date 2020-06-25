@@ -67,7 +67,8 @@
   padding: .5em;
 }
 
-.home-wrapper {
+.login-form-wrapper,
+.signup-form-wrapper{
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -75,7 +76,8 @@
   background-color: #C49069;
 }
 
-.home-wrapper form {
+.login-form-wrapper form,
+.signup-form-wrapper form {
   border: 4px groove #1F6911;
   margin-bottom: 1em;
   display: flex;
@@ -100,16 +102,17 @@
   }
 }
 
-.home-wrapper form button {
+.login-form-wrapper form button {
   background-color: #1F6911;
   font-size: 1.1em;
   padding: .3em;
 }
 
-.home-wrapper form label {
+.login-form-wrapper form label,
+.signup-form-wrapper form label {
   display: flex;
   flex-direction: column;
-  width: 300px;
+  
   color: white;
   font-size: 1.1em;
 }

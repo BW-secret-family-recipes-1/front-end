@@ -12,6 +12,7 @@ import RecipeList from './Components/Recipe/RecipeList';
 //import Signup from './Components/Forms/Signup';
 import PrivateRoute from './utils/PrivateRoute';
 import rootReducer from "./utils/reducers";
+import Signup from './Components/Forms/Signup';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

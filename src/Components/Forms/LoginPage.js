@@ -6,6 +6,7 @@ import { logIn } from "../../utils/actions";
 import { withRouter } from "react-router";
 import { Form, Label, Input } from 'reactstrap';
 import LabeledInput from './LabeledInput';
+import ObjectForm from './ObjectForm';
 
 class LoginPage extends React.Component {
   state = {
@@ -36,9 +37,9 @@ class LoginPage extends React.Component {
   };
 
   render() {
-    if (localStorage.getItem("token")) {
-      return <Redirect to="/user" />;
-    }
+    // {if (localStorage.getItem("token")) {
+    //   return <Redirect to="/user" />;
+    // }}
     return (
       <div className="login-page-wrapper">
         <div className="login-form-wrapper">
@@ -46,39 +47,28 @@ class LoginPage extends React.Component {
             <h2>Loading</h2>
           ) : (
             <>
-              <form className="login-form" onSubmit={this.logIn}>
-                <div className="login-form-header">
-                  <div className="login-logo-wrapper">
-                  </div>
-                  <h3>Log in to</h3>
-                  <h2> Secret Cookbook</h2>
-                </div>
-                <p>Email</p>
-                <input
-                  type="text"
-                  required
-                  name="email"
-                  onChange={this.handleChanges}
-                  value={this.input}
-                />
-                <p>Password</p>
-                <input
-                  type="password"
-                  required
-                  name="password"
-                  onChange={this.handleChanges}
-                  value={this.input}
-                />
-                <button className="login-btn" type="submit">
-                  Log In
-                </button>
+              <ObjectForm
+                object={this.state.credentials}
+                change={this.handleChanges}
+                submit={logIn}
+                errors={{
+                  email: '',
+                  password: ''
+                }}
+                types={{
+                  email: 'text',
+                  password: 'password'
+                }}
+                action={[{text: 'Log In', action: logIn}]}
+              />
+              
                 <p className="login-small-font">
                   Not a member? Sign up{" "}
                   <Link className="login-link" to="/signup">
                     here
                   </Link>
                 </p>
-              </form>
+              
             </>
           )}
         </div>
