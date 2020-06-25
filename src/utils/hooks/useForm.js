@@ -17,14 +17,11 @@ export default function useForm(initialValues, formSchema) {
         axiosWithAuth()
           .get(`https://secret-family-recipes1.herokuapp.com/api/auth/register`)
           .then(res => {
-            setUser(res.data)
+            setValues(res.data)
           })
       }, [])
     
-      const handleChange = (e) => {
-        setNewUser({...newUser, [e.target.name]: e.target.value})
-    };
-
+      const handleChanges = (e) => {
         yup.reach(formSchema, e.target.name)
         .validate(e.target.value)
         .then(valid =>{
@@ -44,10 +41,15 @@ export default function useForm(initialValues, formSchema) {
             ...values,
             [e.target.name]: e.target.name === "user" ? [e.target.user] : e.target.user
         });
-    }
-    const clearForm = () => {
-        setValues(initialValues);
-    }
+        
+    };
 
-    return [values, handleChanges, errors, clearForm, setValues];
-}
+        
+
+        
+        const clearForm = () => {
+            setValues(initialValues);
+        }
+    
+        return [values, handleChanges, errors, clearForm, setValues];
+    }
