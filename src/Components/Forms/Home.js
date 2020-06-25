@@ -1,12 +1,12 @@
 import React from "react";
-import SignInForm from "../Forms/LoginPage";
+import LoginPage from "../Forms/LoginPage";
 
-const LoginPage = () => {
+const Home = () => {
     return (
         <>
-            <SignInForm />
+            <LoginPage />
         </>
     )
 }
 
-export default LoginPage;
+export default Home;
