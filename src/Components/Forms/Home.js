@@ -6,17 +6,15 @@ import LabeledInput from './LabeledInput';
 
 const Home = (props) => {
 
- // make a post request to retrieve a token from the api
  const [credentials, setCredentials] = useState({});
  const [isLoading, setIsLoading] = useState(false);
  const [error, setError] = useState("");
- // when you have handled the token, navigate to the BubblePage route
+ 
  const handleLogin = (e) => {
    e.preventDefault();
    setIsLoading(true);
    axios
      .post("https://secret-family-recipes1.herokuapp.com/api/auth/login", credentials)
-    //  .post("", credentials)
      .then((res) => {
        setTimeout(() => {
          setIsLoading(false);

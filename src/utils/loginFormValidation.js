@@ -13,8 +13,8 @@ export const loginFormSchema = yup.object().shape({
 });
 
 export const registerFormSchema = yup.object().shape({
-    firstame: yup.string().required("Please enter your First Name."),
-    lastName: yup.string().required("Please enter your Last Name."),
+    first_name: yup.string().required("Please enter your First Name."),
+    last_name: yup.string().required("Please enter your Last Name."),
     email: yup
             .string()
             .email("Please enter a valid email address.")

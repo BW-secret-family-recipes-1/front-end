@@ -11,7 +11,6 @@ function User(props)  {
     const params = useParams()
   
     const [user, setUser] = useState({
-        id: 1,
         first_name: 'Test',
         last_name: 'User'
     });
