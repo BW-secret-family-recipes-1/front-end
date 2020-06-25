@@ -6,6 +6,7 @@ import { logIn } from "../../utils/actions";
 import { withRouter } from "react-router";
 import { Form, Label, Input } from 'reactstrap';
 import LabeledInput from './LabeledInput';
+import '../../App.css';
 
 class LoginPage extends React.Component {
   state = {
@@ -40,18 +41,16 @@ class LoginPage extends React.Component {
       return <Redirect to="/user" />;
     }
     return (
-      <div className="login-page-wrapper">
-        <div className="login-form-wrapper">
+      <div className="login-wrapper">
+        <div>
           {this.props.loggingIn ? (
             <h2>Loading</h2>
           ) : (
             <>
-              <form className="login-form" onSubmit={this.logIn}>
-                <div className="login-form-header">
-                  <div className="login-logo-wrapper">
-                  </div>
-                  <h3>Log in to</h3>
-                  <h2> Secret Cookbook</h2>
+              <form onSubmit={this.logIn}>
+                <div className="login-header">
+                  <h2>Your Secret Cookbook</h2>
+                  <h3>Log in</h3>
                 </div>
                 <p>Email</p>
                 <input

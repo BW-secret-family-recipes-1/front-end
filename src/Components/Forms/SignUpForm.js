@@ -9,7 +9,8 @@ class SignUpForm extends React.Component {
         password1: "",
         password2: "",
         first_name: "",
-        last_name: ""
+        last_name: "",
+        passwordMatch: true
     };
 
     handleChanges = e => {
@@ -52,6 +53,22 @@ class SignUpForm extends React.Component {
                       <h3>Welcome to</h3>
                       <h2>Secret Cookbook</h2>
                     </div>
+                    <p>First Name</p>
+                    <input
+                      type="text"
+                      required
+                      name="first_name"
+                      onChange={this.handleChanges}
+                      value={this.input}
+                    />
+                    <p>Last Name</p>
+                    <input
+                      type="text"
+                      required
+                      name="last_name"
+                      onChange={this.handleChanges}
+                      value={this.input}
+                    />
                     <p>Email</p>
                     <input
                       type="text"
