@@ -38,7 +38,9 @@ export default function App() {
       <Provider store={store}>
         <Router>
         <Switch>
-        <Route path='/signup' component={Signup} />
+          <Route path='/signup'>
+            <Signup />
+          </Route>
         <Route path="/recipes/:recipeid">
           <Recipe />
         </Route>

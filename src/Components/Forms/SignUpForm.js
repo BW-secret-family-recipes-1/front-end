@@ -28,6 +28,7 @@ class SignUpForm extends React.Component {
       };
 
       signUp = e => {
+        debugger
         e.preventDefault();
         if (this.state.password === this.state.confirm_password) {
           const newUser = {
@@ -56,7 +57,7 @@ class SignUpForm extends React.Component {
                   <ObjectForm
                     object = {this.state}
                     change = {this.handleChanges}
-                    submit = {this.signUp}
+                    submit = {signUp}
                     errors = {this.errors}
                     types = {{
                       email: 'text',
@@ -65,7 +66,7 @@ class SignUpForm extends React.Component {
                       first_name: 'text',
                       last_name: 'text'
                     }}
-                    action = {[{text: 'Sign Up', action: signUp}]}
+                    action = {[{text: 'Sign Up', action: this.signUp}]}
                   />
                     {!this.state.passwordMatch ? (
                       <p>Oops! Your passwords don't match</p>

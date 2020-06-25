@@ -84,7 +84,7 @@
   flex-direction: column;
   align-items: center;
   padding: 1em;
-  width: 40%;
+  width: 60%;
   background-image: url(./Assets/cuttingboard.png);
   background-size: cover;
 }
@@ -93,7 +93,8 @@
   margin: auto 25%;
 }
 @media (max-width: 768px){
-  .home-wrapper form{
+  .login-form-wrapper form,
+  .signup-form-wrapper form{
     width: 100%;
   }
   .form-group {
