@@ -11,7 +11,8 @@ class SignUpForm extends React.Component {
         password: "",
         confirm_password: "",
         first_name: "",
-        last_name: ""
+        last_name: "",
+        passwordMatch: true
     };
     errors = {
         email: '',
@@ -87,20 +88,53 @@ class SignUpForm extends React.Component {
                 <h2>Loading</h2>
               ) : (
                 <>
-                  <ObjectForm
-                    object = {this.state}
-                    change = {this.handleChanges}
-                    submit = {signUp}
-                    errors = {this.errors}
-                    types = {{
-                      email: 'text',
-                      password: 'password',
-                      confirm_password: 'password',
-                      first_name: 'text',
-                      last_name: 'text'
-                    }}
-                    action = {[{text: 'Sign Up', action: this.signUp}]}
-                  />
+                  <form className="signup-form" onSubmit={this.signUp}>
+                    <div className="signup-form-header">
+                      <div className="signup-logo-wrapper">
+                      </div>
+                      <h3>Welcome to</h3>
+                      <h2>Secret Cookbook</h2>
+                    </div>
+                    <p>First Name</p>
+                    <input
+                      type="text"
+                      required
+                      name="first_name"
+                      onChange={this.handleChanges}
+                      value={this.input}
+                    />
+                    <p>Last Name</p>
+                    <input
+                      type="text"
+                      required
+                      name="last_name"
+                      onChange={this.handleChanges}
+                      value={this.input}
+                    />
+                    <p>Email</p>
+                    <input
+                      type="text"
+                      required
+                      name="email"
+                      onChange={this.handleChanges}
+                      value={this.input}
+                    />
+                    <p>Create password</p>
+                    <input
+                      type="password"
+                      required
+                      name="password1"
+                      onChange={this.handleChanges}
+                      value={this.input}
+                    />
+                    <p>Confirm password</p>
+                    <input
+                      type="password"
+                      required
+                      name="password2"
+                      onChange={this.handleChanges}
+                      value={this.input}
+                    />
                     {!this.state.passwordMatch ? (
                       <p>Oops! Your passwords don't match</p>
                     ) : (
@@ -112,6 +146,7 @@ class SignUpForm extends React.Component {
                         here
                       </Link>
                     </p>
+                    </form>
                 </>
               )}
             </div>

@@ -3,6 +3,7 @@
 .App {
   font-family: 'Alegreya Sans', sans-serif;
 }
+
 .nav {
   display: flex;
   flex-direction: row;
@@ -12,13 +13,43 @@
   border: 4px groove #C49069;
 }
 
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2em;
+}
+
+.login-wrapper {
+  display: flex;
+  margin: 1em;
+  padding: 1.5em;
+}
+
+.login-header {
+  background-color: #C49069;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #C49069;
+  border: 4px groove #C49069;
+  padding: 1em;
+}
+.login-btn {
+   margin: .5em;
+}
+
 .title-bar {
   margin: 1em;
   padding: 1em;
 }
 
 .title-bar h1,
-.home-wrapper h2,
+.jumbotron h1,
 .card-title h1{
   font-family: 'Charmonman', cursive;
   font-size: 3rem;
@@ -34,6 +65,10 @@
   font-family: 'Charmonman', cursive;
 }
 
+ .login-header h3,
+ .login-header h2{
+  font-family: 'Charmonman', cursive;
+}
 
 .card-header h3{
   color: white;

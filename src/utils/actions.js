@@ -6,7 +6,7 @@ export const SIGN_UP_SUCCESS = "SIGN_UP_SUCCESS";
 export const SIGN_UP_FAILURE = "SIGN_UP_FAILURE";
 
 export const signUp = (credentials, history) => dispatch => {
-  const creds = { username: credentials.username, password: credentials.password }
+  const creds = { email: credentials.email, password: credentials.password }
   dispatch({ type: SIGN_UP_START });
   axios
     .post(
@@ -17,7 +17,7 @@ export const signUp = (credentials, history) => dispatch => {
       dispatch({ type: SIGN_UP_SUCCESS });
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
-        history.push('/user');
+        history.push('/');
       } else {
         credentials.history.push('/');
       }
