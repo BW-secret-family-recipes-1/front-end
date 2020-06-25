@@ -22,6 +22,7 @@ export default function useForm(initialValues, formSchema) {
       }, [])
     
       const handleChanges = (e) => {
+          e.persist()
         yup.reach(formSchema, e.target.name)
         .validate(e.target.value)
         .then(valid =>{
