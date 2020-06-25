@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { signUp } from "../../utils/actions";
 import ObjectForm from './ObjectForm';
 
-class SignupForm extends React.Component {
+class SignUpForm extends React.Component {
     state = {
         email: "",
         password: "",
@@ -94,5 +94,5 @@ export default withRouter(
     connect(
         mapStateToProps,
         { signUp }
-    )(SignupForm)
+    )(SignUpForm)
 );
