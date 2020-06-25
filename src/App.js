@@ -9,7 +9,6 @@ import Recipe from './Components/Recipe/Recipe';
 import User from './Components/User';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import RecipeList from './Components/Recipe/RecipeList';
-import Signup from './Components/Forms/Signup';
 import PrivateRoute from './utils/PrivateRoute';
 import rootReducer from "./utils/reducers";
 import Signup from './Components/Forms/Signup';

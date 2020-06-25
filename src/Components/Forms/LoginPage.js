@@ -37,9 +37,9 @@ class LoginPage extends React.Component {
   };
 
   render() {
-    // {if (localStorage.getItem("token")) {
-    //   return <Redirect to="/user" />;
-    // }}
+     {if (localStorage.getItem("token")) {
+       return <Redirect to="/user" />;
+     }}
     return (
       <div className="login-page-wrapper">
         <div className="login-form-wrapper">
