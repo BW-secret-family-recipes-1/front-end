@@ -1,12 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
-import { useParams, Link } from 'react-router-dom';
-import RecipeLink from './Recipe/RecipeLink';
-import { Jumbotron, Container, Card, CardImgOverlay, CardImg, Col, Row } from 'reactstrap';
+import React, { useState, useEffect } from 'react';
+import { Jumbotron } from 'reactstrap';
 import RecipeList from './Recipe/RecipeList';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 
+<<<<<<< HEAD
 const User = ({ history }) => {
     const params = useParams()
 
@@ -14,6 +12,9 @@ const User = ({ history }) => {
         localStorage.removeItem('token');
         history.push('/');
     };
+=======
+function User()  {
+>>>>>>> b6e71b9e0505c8abb7a24e1784716536c7da26f6
   
     const [user, setUser] = useState({
         first_name: 'Test',
@@ -38,8 +39,13 @@ const User = ({ history }) => {
         <Jumbotron>
             <h1 className='display-3'>{user.first_name} {user.last_name}'s Family Recipes!</h1>
             <hr className='my-2'></hr>
+<<<<<<< HEAD
             <button onClick={signOut}>Sign Out</button>
             <RecipeList user={user.id}/>
+=======
+            {/* <button className="button" onClick = {() => {signOut()}}>Sign Out</button> */}
+            <RecipeList user={recipes}/>
+>>>>>>> b6e71b9e0505c8abb7a24e1784716536c7da26f6
         </Jumbotron>
     )
 }
