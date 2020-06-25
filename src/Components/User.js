@@ -4,17 +4,12 @@ import RecipeList from './Recipe/RecipeList';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 
-<<<<<<< HEAD
 const User = ({ history }) => {
-    const params = useParams()
 
     const signOut = () => {
         localStorage.removeItem('token');
         history.push('/');
     };
-=======
-function User()  {
->>>>>>> b6e71b9e0505c8abb7a24e1784716536c7da26f6
   
     const [user, setUser] = useState({
         first_name: 'Test',
@@ -39,13 +34,8 @@ function User()  {
         <Jumbotron>
             <h1 className='display-3'>{user.first_name} {user.last_name}'s Family Recipes!</h1>
             <hr className='my-2'></hr>
-<<<<<<< HEAD
             <button onClick={signOut}>Sign Out</button>
             <RecipeList user={user.id}/>
-=======
-            {/* <button className="button" onClick = {() => {signOut()}}>Sign Out</button> */}
-            <RecipeList user={recipes}/>
->>>>>>> b6e71b9e0505c8abb7a24e1784716536c7da26f6
         </Jumbotron>
     )
 }
