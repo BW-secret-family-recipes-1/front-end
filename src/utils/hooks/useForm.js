@@ -1,12 +1,29 @@
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import * as yup from "yup";
+import { axiosWithAuth } from '../../utils/axiosWithAuth';
 
 export default function useForm(initialValues, formSchema) {
     const [values, setValues] = useState(initialValues);
     const [errors, setErrors] = useState(initialValues);
 
-    const handleChanges = e => {
-        if(e.target.name !== "user") e.persist();
+    const [newUser, setNewUser] = useState({
+        email: '',
+        password: '',
+        first_name: '',
+        last_name: ''
+    });
+    useEffect(() => {
+        axiosWithAuth()
+          .get(`https://secret-family-recipes1.herokuapp.com/api/auth/register`)
+          .then(res => {
+            setUser(res.data)
+          })
+      }, [])
+    
+      const handleChange = (e) => {
+        setNewUser({...newUser, [e.target.name]: e.target.value})
+    };
 
         yup.reach(formSchema, e.target.name)
         .validate(e.target.value)
