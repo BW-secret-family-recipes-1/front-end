@@ -3,7 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { signUp } from "../../utils/actions";
 
-class SignupForm extends React.Component {
+class SignUpForm extends React.Component {
     state = {
         email: "",
         password1: "",
@@ -108,5 +108,5 @@ export default withRouter(
     connect(
         mapStateToProps,
         { signUp }
-    )(SignupForm)
+    )(SignUpForm)
 );
