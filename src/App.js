@@ -1,12 +1,24 @@
 import React from 'react';
 import './App.css';
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
+import logger from 'redux-logger';
+import { Provider } from 'react-redux';
 import Home from './Components/Forms/Home';
 import Recipe from './Components/Recipe/Recipe';
 import User from './Components/User';
-import { Route, Link, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import RecipeList from './Components/Recipe/RecipeList';
 import Signup from './Components/Forms/Signup';
 import PrivateRoute from './utils/PrivateRoute';
+import rootReducer from "./utils/reducers";
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk, logger))
+);
 
 export default function App() {
   return (
@@ -23,7 +35,9 @@ export default function App() {
           <Link to="/recipes">Recipes</Link>
         </div>
       </nav>
-      <Switch>
+      <Provider store={store}>
+        <Router>
+        <Switch>
         <Route path='/signup'>
           <Signup />
         </Route>
@@ -36,6 +50,8 @@ export default function App() {
         <PrivateRoute path="/user" component={User} />
         <Route path="/" component={Home} />
       </Switch>
+        </Router>
+      </Provider>
       <div className="Footer">
         <p>Created by Build Week Lambda Students</p>
         <p>June 2020</p>
