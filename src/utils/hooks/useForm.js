@@ -1,9 +1,11 @@
+
 import { useState, useEffect } from "react";
+import * as yup from "yup";
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
 
 export default function useForm(initialValues, formSchema) {
-    
-    const [user, setUser] = useState([]);
+    const [values, setValues] = useState(initialValues);
+    const [errors, setErrors] = useState(initialValues);
 
     const [newUser, setNewUser] = useState({
         email: '',
@@ -15,13 +17,40 @@ export default function useForm(initialValues, formSchema) {
         axiosWithAuth()
           .get(`https://secret-family-recipes1.herokuapp.com/api/auth/register`)
           .then(res => {
-            setUser(res.data)
+            setValues(res.data)
           })
       }, [])
     
-      const handleChange = (e) => {
-        setNewUser({...newUser, [e.target.name]: e.target.value})
+      const handleChanges = (e) => {
+          e.persist()
+        yup.reach(formSchema, e.target.name)
+        .validate(e.target.value)
+        .then(valid =>{
+            setErrors({
+                ...errors,
+                [e.target.name]: ""
+            });
+        })
+        .catch(err =>{
+            setErrors({
+                ...errors,
+                [e.target.name]: err.errors[0]
+            });
+        });
+
+        setValues({
+            ...values,
+            [e.target.name]: e.target.name === "user" ? [e.target.user] : e.target.user
+        });
+        
     };
 
-    return [newUser, handleChange];
-}
+        
+
+        
+        const clearForm = () => {
+            setValues(initialValues);
+        }
+    
+        return [values, handleChanges, errors, clearForm, setValues];
+    }
