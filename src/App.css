@@ -86,6 +86,19 @@
   background-image: url(./Assets/cuttingboard.png);
   background-size: cover;
 }
+.form-group{
+  width: 50%;
+  margin: auto 25%;
+}
+@media (max-width: 768px){
+  .home-wrapper form{
+    width: 100%;
+  }
+  .form-group {
+    width: 90%;
+    margin: auto 5%
+  }
+}
 
 .home-wrapper form button {
   background-color: #1F6911;

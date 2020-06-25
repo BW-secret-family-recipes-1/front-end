@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, CardImg, CardHeader, CardImgOverlay, CardBody, CardSubtitle } from 'reactstrap';
-import { Link, useRouteMatch, useHistory } from 'react-router-dom';
-import RecipeLink from './RecipeLink';
-import axios from "axios";
+import { Link, useHistory } from 'react-router-dom';
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
 import cuttingboard from '../../Assets/cuttingboard.png'
 import ObjectForm from '../Forms/ObjectForm';
+import * as Yup from 'yup'
+import useForm from '../../utils/hooks/useForm';
 
 const initialRecipe = {
     title:"", 
@@ -16,10 +16,10 @@ const initialRecipe = {
 }
 
 const RecipeList = ( {updateRecipes}) => {
-    const match = useRouteMatch();
     const history = useHistory();
 
     const [recipes, setRecipes] = useState([
+      {title: 'Recipe 1', source: 'meemaw', ingredients: '', instructions: '', category: 'chicken', id: 1},
       {title: 'Recipe 1', source: 'meemaw', ingredients: '', instructions: '', category: 'chicken', id: 1},
       {title: 'Recipe 1', source: 'meemaw', ingredients: '', instructions: '', category: 'chicken', id: 1},
       {title: 'Recipe 1', source: 'meemaw', ingredients: '', instructions: '', category: 'chicken', id: 1},
@@ -28,17 +28,42 @@ const RecipeList = ( {updateRecipes}) => {
 
     console.log("ml: recipelist.js: ", recipes);
     const [editing, setEditing] = useState(false);
-    const [recipeToEdit, setRecipeToEdit] = useState(initialRecipe);
     const [clicked, setClicked] = useState({})
     const [add, setAdd] = useState(false)
-    const [newRecipe, setNewRecipe] = useState({
-        title:"", 
-        source:"", 
-        ingredients:"", 
-        instructions: "", 
-        category:""
 
-    });
+    
+    const recipeSchema = Yup.object().shape({
+      title: Yup
+        .string()
+        .min(2, 'Recipe Title must be at least two characters long')
+        .required('Must enter a recipe title'),
+      source: Yup
+        .string()
+        .required('Please enter a source for this recipe'),
+      /* I'm terrible at regex... tried to come up with a regex for an ingredient pattern, but failed */
+      ingredients: Yup
+        .string()
+        .min(2)
+        .required('Please enter at least one ingredient'),
+      instructions: Yup
+        .string()
+        .min(2)
+        .required('Please enter at least one instruction'),
+      category: Yup
+        .string()
+        .min(2)
+        .required('Please enter a category for your recipe')
+    })
+
+    const [newRecipe, newRecipeChange, newRecipeErrors, newRecipeClear, setNewRecipe] = useForm(
+      initialRecipe,
+      recipeSchema
+    )
+
+    const [recipeToEdit, recipeToEditChange, recipeToEditErrors, recipeToEditClear, setRecipeToEdit] = useForm(
+      initialRecipe,
+      recipeSchema
+    )
 
     const editRecipe = (recipe) => {
         setRecipeToEdit(recipe)
@@ -58,6 +83,7 @@ const RecipeList = ( {updateRecipes}) => {
           setRecipes(res.data)
         })
     }, [])
+
     const saveEdit = e => {
         e.preventDefault();
         
@@ -118,29 +144,21 @@ const RecipeList = ( {updateRecipes}) => {
             })
     };
 
-    const handleChange = (e) => {
-        setNewRecipe({...newRecipe, [e.target.name]: e.target.value})
-    };
+    
 
     return (
-        <div className="recipe-wrapper">
+    <div className="recipe-wrapper">
       <div className="recipe-list">
         <h1>Recipes</h1>
         <button onClick={()=> setAdd(true)}>Add New Recipe</button>
         {add && (
           <div className="recipe-add">
-            <legend>Add New Recipe</legend>
+            <legend style={{width: '50%', margin: 'auto 25%'}}>Add New Recipe</legend>
             <ObjectForm
               object={newRecipe}
-              change={handleChange}
+              change={newRecipeChange}
               submit={addRecipe}
-              errors={{
-                title: '',
-                source: '',
-                ingredients: '',
-                instructions: '',
-                category: ''
-              }}
+              errors={newRecipeErrors}
               types={{
                 title: 'text',
                 source: 'text',
@@ -151,11 +169,11 @@ const RecipeList = ( {updateRecipes}) => {
               action={[
                 {
                   text: 'Save',
-                  submit: addRecipe
+                  action: addRecipe
                 }, 
                 {
                   text: 'Cancel', 
-                  submit: ()=> setAdd(false)
+                  action: ()=> setAdd(false)
                 }
               ]}
             />
@@ -163,18 +181,12 @@ const RecipeList = ( {updateRecipes}) => {
         )}
         {editing && (
           <div className='edit'>
-            <legend>Edit Recipe</legend>
+            <legend style={{width: '50%', margin: 'auto 25%'}}>Edit Recipe</legend>
               <ObjectForm 
                 object={recipeToEdit}
-                change={(e)=> setRecipeToEdit({...recipeToEdit, [e.target.name]: e.target.value})}
+                change={recipeToEditChange}
                 submit={saveEdit}
-                errors={{
-                  title: '',
-                  source: '',
-                  ingredients: '',
-                  instructions: '',
-                  category: ''
-                }}
+                errors={recipeToEditErrors}
                 types={{
                   title: 'text',
                   source: 'text',
@@ -185,20 +197,20 @@ const RecipeList = ( {updateRecipes}) => {
                 action={[
                   {
                     text: 'Save', 
-                    submit: saveEdit
+                    action: saveEdit
                   }, 
                   {
                     text: 'Cancel', 
-                    submit: ()=> setEditing(false)
+                    action: ()=> setEditing(false)
                   }
                 ]}
               />
           </div>
         )}
-      <Container>
+        <Container>
         <Row sm='5'>
         {recipes.map(recipe => (
-          <Col>
+          <Col sm='12' md='6' lg='3'>
           <Card onClick={(e) => { 
             e.stopPropagation()
             recipeClicked(recipe)}}>
@@ -231,11 +243,7 @@ const RecipeList = ( {updateRecipes}) => {
         
         </Row>
       </Container>
-      
-      
       </div>
-      <div className="spacer" />
-      
     </div>
     )
 };

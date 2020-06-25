@@ -40,33 +40,19 @@ const Signup = ( {updateUser} ) => {
     return (
     <div className="home-wrapper">
         <h2>Signup!</h2>
-       <Form onSubmit={(e) => addUser(e)}>
-            <LabeledInput 
-                text='Email' 
-                name='email' 
-                type='text' 
-                onChange={(e) => handleChange(e)}
-            />
-            <LabeledInput 
-                text='Password' 
-                name='password' 
-                type='password' 
-                onChange={(e) => handleChange(e)}
-            />
-            <LabeledInput 
-                text='First Name' 
-                name='first_name' 
-                type='text' 
-                onChange={(e) => handleChange(e)}
-            />
-            <LabeledInput 
-                text='Last Name' 
-                name='last_name' 
-                type='text' 
-                onChange={(e) => handleChange(e)}
-            />
-            <button type='submit'>Sign up</button>
-        </Form>
+        <ObjectForm
+            object={user}
+            change={handleChanges}
+            submit={handleSubmit}
+            errors={errors}
+            types={{
+                email: 'text',
+                password: 'password',
+                first_name: 'text',
+                last_name: 'text'
+            }}
+            action= {[{text: 'Sign Up!', action: handleSubmit}]}
+        />
     </div>)
 }
 

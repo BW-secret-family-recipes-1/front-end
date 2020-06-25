@@ -1,12 +1,15 @@
 
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios';
-import { Form, Label, Input } from 'reactstrap';
-import LabeledInput from './LabeledInput';
+import ObjectForm from './ObjectForm';
 
 const Home = (props) => {
 
- const [credentials, setCredentials] = useState({});
+
+ const [credentials, setCredentials] = useState({
+   email: '',
+   password: ''
+ });
  const [isLoading, setIsLoading] = useState(false);
  const [error, setError] = useState("");
  
@@ -44,26 +47,25 @@ const Home = (props) => {
        <h2>Log In to See Recipe's</h2>
        <h3 cy-data='error' style={{ color: "red" }}>{error}</h3>
         {isLoading ? (<h1>Loading</h1>) : (
-       <Form onSubmit={handleLogin}>
-         <LabeledInput 
-          text='Email' 
-          name='email' 
-          type='text' 
-          change={handleChange} 
-          value={credentials.email}
-          feedback = ''
-        />
-        <LabeledInput 
-          text='Password' 
-          name='password' 
-          type='password' 
-          change={handleChange} 
-          value={credentials.password}
-          feedback=''
-        />
-         
-         <button type="submit">Login</button>
-       </Form>
+          <ObjectForm 
+            object={credentials}
+            change={handleChange}
+            submit={handleLogin}
+            errors={{
+              email: '',
+              password: ''
+            }}
+            types={{
+              email: 'text',
+              password: ''
+            }}
+            action={[
+              {
+                text: 'Login',
+                action: handleLogin
+              }
+            ]} 
+          />
      )}
    </div>
  );
