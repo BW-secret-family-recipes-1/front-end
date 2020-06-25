@@ -5,7 +5,6 @@ import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 
 const User = ({ history }) => {
-    const params = useParams()
 
     const signOut = () => {
         localStorage.removeItem('token');
