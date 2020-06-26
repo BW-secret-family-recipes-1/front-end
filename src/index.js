@@ -7,10 +7,9 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { Provider } from 'react-redux';
 import Home from './Components/Forms/Home';
-import Recipe from './Components/Recipe/Recipe';
 import User from './Components/User';
+import AddRecipe from './Components/AddRecipe';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import RecipeList from './Components/Recipe/RecipeList';
 import Signup from './Components/Forms/Signup';
 import PrivateRoute from './utils/PrivateRoute';
 import rootReducer from "./utils/reducers";
@@ -29,6 +28,7 @@ ReactDOM.render(
             <Route path='/signup'>
               <Signup />
             </Route>
+            <PrivateRoute exact path="/add-recipe" component={AddRecipe} />
             <PrivateRoute exact path="/" component={User} />
             <Route path="/login" component={Home} />
           </Switch>
