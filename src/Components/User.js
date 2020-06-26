@@ -5,7 +5,7 @@ import RecipeList from './Recipe/RecipeList';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import TagSearch from './TagSearch';
 import Navigation from './Navigation';
-import AddRecipe from './AddRecipe';
+import Footer from './Footer';
 
 
 const User = ({ history }) => {
@@ -40,14 +40,11 @@ const User = ({ history }) => {
         <Jumbotron>
             <h1 className='display-3'>{user.first_name} {user.last_name}'s Family Recipes!</h1>
             <hr className='my-2'></hr>
-            <AddRecipe />
             <TagSearch />
             <RecipeList />
         </Jumbotron>
-        <div className="Footer">
-        <p>Created by Build Week Lambda Students</p>
-        <p>June 2020</p>
-      </div>
+        <Footer/>
+        
     </div>
     )
 }
