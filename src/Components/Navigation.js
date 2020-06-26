@@ -4,7 +4,7 @@ import { NavLink, withRouter } from "react-router-dom";
 const Navigation = ({ history }) => {
     const signOut = () => {
         localStorage.removeItem('token');
-        history.push('/log-in');
+        history.push('/login');
     };
 
     return (
