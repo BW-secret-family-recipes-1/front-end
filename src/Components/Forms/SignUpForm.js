@@ -71,7 +71,9 @@ class SignUpForm extends React.Component {
         if (this.state.user.password === this.state.user.confirm_password) {
           const newUser = {
             email: this.state.user.email,
-            password: this.state.user.password
+            password: this.state.user.password,
+            first_name: this.state.user.first_name,
+            last_name: this.state.user.last_name
           };
           this.props.signUp(newUser, this.props.history);
           this.setState({...this.state, user:{

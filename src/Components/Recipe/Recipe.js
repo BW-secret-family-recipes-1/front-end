@@ -8,26 +8,13 @@ class Recipe extends React.Component {
     state = {
         title: '',
         source: '',
-        ingredients: [],
-        instructions: [],
-        categorys: [],
         category: '',
-        commonCategorys: [
-            "Breakfast",
-            "Lunch",
-            "Dinner",
-            "Dessert",
-            "Side",
-            "Main",
-            "Appetizer",
-            "Vegetable",
-            "Chicken",
-            "Pork",
-            "Beef",
-            "Quick"
-          ]
+        step_number: [],
+        instructions: '',
+        name: [],
+        nameValue: '',
+        step_numbersValue: ''
     };
-
     handleChanges = e => {
         e.persist();
         this.setState({
@@ -39,38 +26,38 @@ class Recipe extends React.Component {
       addIngredient = e => {
         e.preventDefault();
         this.setState(state => {
-          const ingredients = [...state.ingredients, state.ingredientValue];
+          const name = [...state.name, state.nameValue];
           return {
-            ingredients,
-            ingredientValue: ""
+            name,
+            nameValue: ""
           };
         });
       };
 
-      addIntructions = e => {
+      addInstructions = e => {
         e.preventDefault();
         this.setState(state => {
           const instructions = [...state.instructions, state.instructionValue];
           return {
             instructions,
             instructionValue: ""
+
           };
         });
       };
-
-      addCategoryByButton = (e, category) => {
+      addStep = e => {
         e.preventDefault();
         this.setState(state => {
-          const categorys = [...state.categorys, category.toString()];
-          const commonCategorys = state.commonCategorys.filter(el => el !== category);
+          const step_number = [...state.step_number, state.step_numbersValue];
           return {
-            categorys,
-            commonCategorys
+            step_number,
+            step_numbersValue: ''
+
           };
         });
       };
 
-      addCustomCategory = (e) => {
+      addCategory = (e) => {
         e.preventDefault();
         const newCategory = [...this.state.categorys]
         newCategory.push(this.state.category)
@@ -82,10 +69,10 @@ class Recipe extends React.Component {
 
       deleteIngredient = (e, index) => {
         e.preventDefault();
-        const newIngredients = [...this.state.ingredients];
-        newIngredients.splice(index, 1);
+        const newName = [...this.state.name];
+        newName.splice(index, 1);
         this.setState({
-          ingredients: newIngredients
+          name: newName
         });
       };
       deleteInstructions = (e, index) => {
@@ -94,6 +81,14 @@ class Recipe extends React.Component {
         newInstructions.splice(index, 1);
         this.setState({
           instructions: newInstructions
+        });
+      };
+      deleteStep = (e, index) => {
+        e.preventDefault();
+        const newStep_number = [...this.state.step_number];
+        newStep_number.splice(index, 1);
+        this.setState({
+          step_number: newStep_number
         });
       };
       deleteCategory = (e, index) => {
@@ -110,7 +105,8 @@ class Recipe extends React.Component {
         const newRecipe = {
           title: this.state.title,
           source: this.state.source,
-          ingredients: this.state.ingredients,
+          name: this.state.name,
+          step_number: this.state.step_number,
           instructions: this.state.instructions,
           category: this.state.category
         };
@@ -123,6 +119,7 @@ render(){
         <div className="recipe-form">
           <h2>Create New Recipe</h2>
           <form onSubmit={this.submitRecipe}>
+{/* Add Title */}
             <input
               placeholder="Title"
               type="text"
@@ -131,6 +128,7 @@ render(){
               onChange={this.handleChanges}
               value={this.state.title}
             />
+{/* Add Source */}
             <input
               placeholder="Source"
               type="text"
@@ -138,22 +136,22 @@ render(){
               onChange={this.handleChanges}
               value={this.state.source}
             />
+{/* Add Ingredients */}
             <div className="ingredients-wrapper">
               <h3>Ingredients</h3>
-  
               <input
                 placeholder="Ingredient"
                 type="text"
-                name="ingredientValue"
+                name="nameValue"
                 onChange={this.handleChanges}
-                value={this.state.ingredientValue}
+                value={this.state.nameValue}
               />
               <button onClick={this.addIngredient}>Add Ingredient</button>
-              {this.state.ingredients.map((ingredient, index) => (
+              {this.state.name.map((names, index) => (
                 <div className="ingredient">
                   <ShowArrayItem
                     listNum={index + 1}
-                    item={ingredient}
+                    item={names}
                     key={index}
                   />
                   <button onClick={e => this.deleteIngredient(e, index)}>
@@ -162,16 +160,40 @@ render(){
                 </div>
               ))}
             </div>
+{/* Add Instructions */}
             <div className="directions-wrapper">
               <h3>Instructions</h3>
+    {/* Add Step Number */}
+              <h3>Step Number</h3>
               <input
+                type="text"
+                name="step_numbersValue"
+                onChange={this.handleChanges}
+                value={this.state.step_numbersValue}
+                placeholder="Instruction Number"
+              />
+              <button onClick={this.addStep_number}>Add</button>
+              {this.state.step_number.map((step_numbers, index) => (
+                <div className="direction">
+                  <ShowArrayItem
+                    listNum={index + 1}
+                    item={step_numbers}
+                    key={index}
+                  />
+                  <button onClick={e => this.deleteInstructions(e, index)}>
+                  Delete Step
+                </button>
+                </div>
+                ))}
+      {/* Add Instructions */}
+                <input
                 type="text"
                 name="instructionValue"
                 onChange={this.handleChanges}
                 value={this.state.instructionValue}
                 placeholder="Instructions"
               />
-              <button onClick={this.addInstructions}>Plus</button>
+              <button onClick={this.addInstructions}>Add</button>
               {this.state.instructions.map((instruction, index) => (
                 <div className="direction">
                   <ShowArrayItem
@@ -185,25 +207,10 @@ render(){
                 </div>
               ))}
             </div>
+{/* Add Category */}
             <div className="categorys-wrapper">
               <h3>Category</h3>
               <div className="categorys">
-              {this.state.commonCategorys.map((category, index) => {
-                return (
-                  <button
-                    key={index}
-                    onClick={e => this.addCategoryByButton(e, category)}
-                  >
-                    {category}
-                  </button>
-                );
-              })}
-                 <input
-                  type="text"
-                  name="category"
-                  onChange={this.handleChanges}
-                  value={this.state.category}
-                />
                 <button onClick={this.addCustomCategory}>Add Custom Category</button>
               {this.state.categorys.map((category, index) => (
                 <div className="tag">
