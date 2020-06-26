@@ -39,14 +39,14 @@ function ObjectForm({object, change, submit, errors, types, action}){
         <Form onSubmit={(e) => 
             {
                 e.persist()
-                debugger
+                
                 e.preventDefault();
                 submit(e)
             }}>
             {
                 inputs.map(input => input)
             }
-            <div style={{width: '50%', margin: 'auto 25%', textAlign: 'center'}}>
+            <div style={{textAlign: 'center'}}>
                 {
                     action.map(button =>{
                         return <button type='submit' onClick={button.action} disabled={Object.values(errors).filter(val => val !== '').length > 0}>{button.text}</button>
