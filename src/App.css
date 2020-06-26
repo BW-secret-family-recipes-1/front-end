@@ -30,7 +30,7 @@
   background-color: #C49069;
 }
 
-form {
+.form-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -102,7 +102,8 @@ form {
   padding: .5em;
 }
 
-.home-wrapper {
+.login-form-wrapper,
+.signup-form-wrapper{
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -110,23 +111,22 @@ form {
   background-color: #C49069;
 }
 
-.home-wrapper form {
+/* .login-form-wrapper form,
+.signup-form-wrapper form {
   border: 4px groove #1F6911;
   margin-bottom: 1em;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 1em;
-  width: 40%;
+  width: 60%;
   background-image: url(./Assets/cuttingboard.png);
   background-size: cover;
-}
-.form-group{
-  width: 50%;
-  margin: auto 25%;
-}
+} */
+
 @media (max-width: 768px){
-  .home-wrapper form{
+  .login-form-wrapper form,
+  .signup-form-wrapper form{
     width: 100%;
   }
   .form-group {
@@ -135,16 +135,17 @@ form {
   }
 }
 
-.home-wrapper form button {
+.login-form-wrapper form button {
   background-color: #1F6911;
   font-size: 1.1em;
   padding: .3em;
 }
 
-.home-wrapper form label {
+.login-form-wrapper form label,
+.signup-form-wrapper form label {
   display: flex;
   flex-direction: column;
-  width: 300px;
+  
   color: white;
   font-size: 1.1em;
 }
