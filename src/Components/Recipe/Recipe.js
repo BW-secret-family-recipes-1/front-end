@@ -10,6 +10,7 @@ class Recipe extends React.Component {
         source: '',
         ingredients: [],
         instructions: [],
+        categorys: [],
         category: '',
         commonCategorys: [
             "Breakfast",
@@ -69,12 +70,12 @@ class Recipe extends React.Component {
         });
       };
 
-      addCustomTag = (e) => {
+      addCustomCategory = (e) => {
         e.preventDefault();
-        const newTags = [...this.state.tags]
-        newTags.push(this.state.category)
+        const newCategory = [...this.state.categorys]
+        newCategory.push(this.state.category)
         this.setState({
-          tags: newTags,
+          categorys: newCategory,
           category: ""
         })
       }
@@ -203,8 +204,8 @@ render(){
                   onChange={this.handleChanges}
                   value={this.state.category}
                 />
-                <button onClick={this.addCustomTag}>Add Custom Category</button>
-              {this.state.tags.map((category, index) => (
+                <button onClick={this.addCustomCategory}>Add Custom Category</button>
+              {this.state.categorys.map((category, index) => (
                 <div className="tag">
                   <p>{category}</p>
                   <button onClick={e => this.deleteCategory(e, index)}>
