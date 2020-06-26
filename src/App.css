@@ -28,6 +28,7 @@
 
 .login-header {
   background-color: #C49069;
+  text-align: center;
 }
 
 .form-wrapper {
@@ -38,6 +39,7 @@
   background-color: #C49069;
   border: 4px groove #C49069;
   padding: 1em;
+  width: 100%;
 }
 .login-btn {
    margin: .5em;
@@ -102,13 +104,24 @@
   padding: .5em;
 }
 
-.login-form-wrapper,
+.signup-page-wrapper,
+.login-wrapper{
+  width: 70%;
+}
+
+
+
+ .login-form-wrapper,
 .signup-form-wrapper{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: #C49069;
+  width: 100%;
+}
+.form-wrapper form{
+  width: 100%;
 }
 
 /* .login-form-wrapper form,

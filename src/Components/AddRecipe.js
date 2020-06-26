@@ -5,7 +5,6 @@ import Navigation from "./Navigation";
 const AddRecipe =() => {
     return (
         <>
-        <Navigation/>
         <Recipe/>
         </>
     )

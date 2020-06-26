@@ -43,7 +43,6 @@ class LoginPage extends React.Component {
      }}
     return (
       <div className="login-wrapper">
-        <div>
           {this.props.loggingIn ? (
             <h2>Loading</h2>
           ) : (
@@ -85,7 +84,6 @@ class LoginPage extends React.Component {
               
             </>
           )}
-        </div>
       </div>
     );
   }

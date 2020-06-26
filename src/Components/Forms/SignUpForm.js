@@ -67,7 +67,6 @@ class SignUpForm extends React.Component {
       };
 
       signUp = e => {
-        debugger
         e.preventDefault();
         if (this.state.user.password === this.state.user.confirm_password) {
           const newUser = {
