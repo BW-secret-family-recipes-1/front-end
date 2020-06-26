@@ -1,89 +1,233 @@
-import React, { useState, useEffect } from 'react'
-import { Card, CardHeader, CardSubtitle, CardTitle, CardImgOverlay, CardImg } from 'reactstrap'
-import woodimage from '../../Assets/woodboard.jpg'
-import Instructions from './Instructions'
-import Ingredients from './Ingredients'
+import React from 'react';
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { addRecipe } from "../../utils/actions";
+import ShowArrayItem from "../../utils/ShowArrayitem";
 
-function Recipe(props){
-    const [recipe, setRecipe] = useState({
-        id: 1,
-        title: 'Rice Crispie Treats',
-        source: 'Meemaw',
-        ingredients: [
-            "Rice Crispies",
-            "Marshmallows"
-        ],
-        instructions: [
-            "Melt the Marshmallows",
-            "Add the Rice Crispies",
-            "Stir",
-            "Cool",
-            "Sint eiusmod quis in esse excepteur do exercitation qui labore. Labore nisi ea occaecat consequat. Non dolore sunt excepteur cupidatat nulla mollit qui dolore ea. Ea voluptate laborum velit sint aute. Sint eiusmod quis in esse excepteur do exercitation qui labore. Labore nisi ea occaecat consequat. Non dolore sunt excepteur cupidatat nulla mollit qui dolore ea. Ea voluptate laborum velit sint aute. Sint eiusmod quis in esse excepteur do exercitation qui labore. Labore nisi ea occaecat consequat. Non dolore sunt excepteur cupidatat nulla mollit qui dolore ea. Ea voluptate laborum velit sint aute. Sint eiusmod quis in esse excepteur do exercitation qui labore. Labore nisi ea occaecat consequat. Non dolore sunt excepteur cupidatat nulla mollit qui dolore ea. Ea voluptate laborum velit sint aute.",
-            "blach",
-            "blach",
-            "blach",
-            "blach"
-        ]
-    })
-    const [background, setBackground] = useState([]);
-    const [recipeHeight, setRecipeHeight] = useState('100%');
+class Recipe extends React.Component {
+    state = {
+        title: '',
+        source: '',
+        ingredients: [],
+        instructions: [],
+        category: '',
+        commonCategorys: [
+            "Breakfast",
+            "Lunch",
+            "Dinner",
+            "Dessert",
+            "Side",
+            "Main",
+            "Appetizer",
+            "Vegetable",
+            "Chicken",
+            "Pork",
+            "Beef",
+            "Quick"
+          ]
+    };
 
-    useEffect(()=>{
-        setRecipeHeight(
-            (document.querySelector('#ingredients').offsetHeight + document.querySelector('#instructions').offsetHeight) + 50 + 'px')
-            
-        function handleResize() {
-            setRecipeHeight(
-                (document.querySelector('#ingredients').offsetHeight + document.querySelector('#instructions').offsetHeight) + 50 + 'px'
-            )
-        }
-        window.addEventListener('resize', handleResize)
-        
-    }, [])
+    handleChanges = e => {
+        e.persist();
+        this.setState({
+          ...this.state,
+          [e.target.name]: e.target.value
+        });
+      };
     
-      useEffect(() =>{
-        let count = parseInt(recipeHeight)/document.querySelector('#bkgImg').offsetHeight
-        if(count === Infinity || count == undefined){
-            count = 0;
-        }
-        let newBackground = new Array(Math.round(count)).fill(1)
-        setBackground(newBackground)
-    }, [recipeHeight])
-    /*
-    useEffect(()=>{
-        Axios.get(`dummy/${params.recipeid}`)
-            .then(data =>{
-                
-                setRecipe(data.data);
-                
-            })
-    }, [])//*/
-    
+      addIngredient = e => {
+        e.preventDefault();
+        this.setState(state => {
+          const ingredients = [...state.ingredients, state.ingredientValue];
+          return {
+            ingredients,
+            ingredientValue: ""
+          };
+        });
+      };
 
+      addIntructions = e => {
+        e.preventDefault();
+        this.setState(state => {
+          const instructions = [...state.instructions, state.instructionValue];
+          return {
+            instructions,
+            instructionValue: ""
+          };
+        });
+      };
+
+      addCategoryByButton = (e, category) => {
+        e.preventDefault();
+        this.setState(state => {
+          const categorys = [...state.categorys, category.toString()];
+          const commonCategorys = state.commonCategorys.filter(el => el !== category);
+          return {
+            categorys,
+            commonCategorys
+          };
+        });
+      };
+
+      addCustomTag = (e) => {
+        e.preventDefault();
+        const newTags = [...this.state.tags]
+        newTags.push(this.state.category)
+        this.setState({
+          tags: newTags,
+          category: ""
+        })
+      }
+
+      deleteIngredient = (e, index) => {
+        e.preventDefault();
+        const newIngredients = [...this.state.ingredients];
+        newIngredients.splice(index, 1);
+        this.setState({
+          ingredients: newIngredients
+        });
+      };
+      deleteInstructions = (e, index) => {
+        e.preventDefault();
+        const newInstructions = [...this.state.instructions];
+        newInstructions.splice(index, 1);
+        this.setState({
+          instructions: newInstructions
+        });
+      };
+      deleteCategory = (e, index) => {
+        e.preventDefault();
+        const newCategory = [...this.state.category];
+        newCategory.splice(index, 1);
+        this.setState({
+          category: newCategory
+        });
+      };
+
+      submitRecipe = e => {
+        e.preventDefault();
+        const newRecipe = {
+          title: this.state.title,
+          source: this.state.source,
+          ingredients: this.state.ingredients,
+          instructions: this.state.instructions,
+          category: this.state.category
+        };
+        console.log('submit recipe history', this.props.history);
+        this.props.addRecipe(newRecipe, this.props.history);
+      };
+    
+render(){
     return (
-    <Card>
-        
-        <CardHeader style={{backgroundColor: '#C49069'}}>
-            <CardTitle>
-                <h1>{recipe.title}</h1>
-            </CardTitle>
-            <CardSubtitle>
-                originally by - {recipe.source}
-            </CardSubtitle>
-        </CardHeader>
-        <Card style={{maxHeight: recipeHeight, overflow: 'hidden'}}>
-            <CardImg id='bkgImg' src={woodimage}/>
-            {background.map((flip, index) =>{
-                return <CardImg src={woodimage} style={{transform: `scaleY(${index % 2 === 1 ? 1 : -1})`}}/>
-            })}
-            <CardImgOverlay >
-                <Ingredients ingredients={recipe.ingredients} />
-                <Instructions instructions={recipe.instructions} /> 
-            </CardImgOverlay>
-        </Card>
-        
-    </Card>
-    )
-}
-
-export default Recipe
+        <div className="recipe-form">
+          <h2>Create New Recipe</h2>
+          <form onSubmit={this.submitRecipe}>
+            <input
+              placeholder="Title"
+              type="text"
+              required
+              name="title"
+              onChange={this.handleChanges}
+              value={this.state.title}
+            />
+            <input
+              placeholder="Source"
+              type="text"
+              name="source"
+              onChange={this.handleChanges}
+              value={this.state.source}
+            />
+            <div className="ingredients-wrapper">
+              <h3>Ingredients</h3>
+  
+              <input
+                placeholder="Ingredient"
+                type="text"
+                name="ingredientValue"
+                onChange={this.handleChanges}
+                value={this.state.ingredientValue}
+              />
+              <button onClick={this.addIngredient}>Add Ingredient</button>
+              {this.state.ingredients.map((ingredient, index) => (
+                <div className="ingredient">
+                  <ShowArrayItem
+                    listNum={index + 1}
+                    item={ingredient}
+                    key={index}
+                  />
+                  <button onClick={e => this.deleteIngredient(e, index)}>
+                  Delete Ingredient
+                </button>
+                </div>
+              ))}
+            </div>
+            <div className="directions-wrapper">
+              <h3>Instructions</h3>
+              <input
+                type="text"
+                name="instructionValue"
+                onChange={this.handleChanges}
+                value={this.state.instructionValue}
+                placeholder="Instructions"
+              />
+              <button onClick={this.addInstructions}>Plus</button>
+              {this.state.instructions.map((instruction, index) => (
+                <div className="direction">
+                  <ShowArrayItem
+                    listNum={index + 1}
+                    item={instruction}
+                    key={index}
+                  />
+                  <button onClick={e => this.deleteInstructions(e, index)}>
+                  Delete Instruction
+                </button>
+                </div>
+              ))}
+            </div>
+            <div className="categorys-wrapper">
+              <h3>Category</h3>
+              <div className="categorys">
+              {this.state.commonCategorys.map((category, index) => {
+                return (
+                  <button
+                    key={index}
+                    onClick={e => this.addCategoryByButton(e, category)}
+                  >
+                    {category}
+                  </button>
+                );
+              })}
+                 <input
+                  type="text"
+                  name="category"
+                  onChange={this.handleChanges}
+                  value={this.state.category}
+                />
+                <button onClick={this.addCustomTag}>Add Custom Category</button>
+              {this.state.tags.map((category, index) => (
+                <div className="tag">
+                  <p>{category}</p>
+                  <button onClick={e => this.deleteCategory(e, index)}>
+                    Delete Category
+                  </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <button type="submit">Add Recipe</button>
+          </form>
+        </div>
+      );
+    }
+  }
+  
+  const mapStateToProps = state => ({
+    addingRecipe: state.addingRecipe
+  });
+  
+  export default withRouter(
+    connect(
+      mapStateToProps,
+      { addRecipe }
+    )(Recipe)
+  );
