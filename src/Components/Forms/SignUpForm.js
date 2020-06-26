@@ -35,7 +35,7 @@ class SignUpForm extends React.Component {
         .required('must enter a password'),
       confirm_password: yup
         .string()
-        .test('match', 'Passwords must match', (confirm_password)=> {debugger; return confirm_password === this.state.user.password}),
+        .test('match', 'Passwords must match', (confirm_password)=> {return confirm_password === this.state.user.password}),
       first_name: yup
         .string()
         .required('Please enter a first name'),
@@ -78,7 +78,10 @@ class SignUpForm extends React.Component {
           this.setState({...this.state, user:{
             email: "",
             password: "",
-            confirm_password: ""
+            confirm_password: "",
+            first_name: '',
+            last_name: '',
+            passwordMatch: true
           }});
         } else {
           this.setState({...this.state, user: { ...this.state.user, passwordMatch: false }});

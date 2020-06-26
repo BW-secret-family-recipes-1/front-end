@@ -36,7 +36,13 @@ function ObjectForm({object, change, submit, errors, types, action}){
     }, [object, errors])
 
     return (
-        <Form onSubmit={(e) => {e.preventDefault(); submit(e)}}>
+        <Form onSubmit={(e) => 
+            {
+                e.persist()
+                debugger
+                e.preventDefault();
+                submit(e)
+            }}>
             {
                 inputs.map(input => input)
             }
