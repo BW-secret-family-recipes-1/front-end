@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { getTitles } from "../../utils/actions";
 
-class RecipeSideBar extends React.Component {
+class RecipeList extends React.Component {
   componentDidMount() {
     this.props.getTitles();
   }
@@ -44,5 +44,5 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { getTitles }
-)(RecipeSideBar);
+)(RecipeList);
 

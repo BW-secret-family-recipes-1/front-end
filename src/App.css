@@ -150,6 +150,10 @@
   font-size: 1.1em;
 }
 
+.recipe-form {
+  background-color: #C49069;
+}
+
 
 .Footer {
   display: flex;
