@@ -19,7 +19,7 @@ export const signUp = (credentials, history) => dispatch => {
         localStorage.setItem("token", res.data.token);
         history.push('/');
       } else {
-        credentials.history.push('/');
+        credentials.history.push('/login');
       }
       return true;
     })

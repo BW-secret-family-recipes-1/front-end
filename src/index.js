@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { createStore, applyMiddleware, compose } from 'redux';
@@ -26,19 +25,13 @@ const store = createStore(
 ReactDOM.render(
       <Provider store={store}>
         <Router>
-        <Switch>
-        <Route path='/signup'>
-          <Signup />
-        </Route>
-        <Route path="/recipes/:recipeid">
-          <Recipe />
-        </Route>
-        <Route path="/recipes">
-          <RecipeList user='-1' />
-        </Route>
-        <PrivateRoute path="/user" component={User} />
-        <Route path="/" component={Home} />
-      </Switch>
+          <Switch>
+            <Route path='/signup'>
+              <Signup />
+            </Route>
+            <PrivateRoute exact path="/" component={User} />
+            <Route path="/login" component={Home} />
+          </Switch>
         </Router>
       </Provider>,
   document.getElementById('root')
