@@ -16,7 +16,7 @@ const Navigation = ({ history }) => {
         <div className="nav-links">
           <a href="https://modest-lumiere-17a08c.netlify.app/" target="_blank">Home</a>
           <a href="https://modest-lumiere-17a08c.netlify.app/about" target="_blank">About</a>
-          <NavLink to="/recipes">Recipes</NavLink>
+          <NavLink to="/">Dashboard</NavLink>
           <NavLink to="/add-recipe">Add New Recipe</NavLink>
           <button onClick={signOut}>Sign Out</button>
         </div>
