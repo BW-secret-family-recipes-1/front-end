@@ -2,32 +2,16 @@ import React from 'react';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { addRecipe } from "../../utils/actions";
-import ShowArrayItem from "../../utils/ShowArrayitem";
 
 class Recipe extends React.Component {
     state = {
         title: '',
         source: '',
-        ingredients: [],
-        instructions: [],
-        categorys: [],
         category: '',
-        commonCategorys: [
-            "Breakfast",
-            "Lunch",
-            "Dinner",
-            "Dessert",
-            "Side",
-            "Main",
-            "Appetizer",
-            "Vegetable",
-            "Chicken",
-            "Pork",
-            "Beef",
-            "Quick"
-          ]
+        step_number: '',
+        instructions: '',
+        name: ''
     };
-
     handleChanges = e => {
         e.persist();
         this.setState({
@@ -36,86 +20,26 @@ class Recipe extends React.Component {
         });
       };
     
-      addIngredient = e => {
-        e.preventDefault();
-        this.setState(state => {
-          const ingredients = [...state.ingredients, state.ingredientValue];
-          return {
-            ingredients,
-            ingredientValue: ""
-          };
-        });
-      };
-
-      addIntructions = e => {
-        e.preventDefault();
-        this.setState(state => {
-          const instructions = [...state.instructions, state.instructionValue];
-          return {
-            instructions,
-            instructionValue: ""
-          };
-        });
-      };
-
-      addCategoryByButton = (e, category) => {
-        e.preventDefault();
-        this.setState(state => {
-          const categorys = [...state.categorys, category.toString()];
-          const commonCategorys = state.commonCategorys.filter(el => el !== category);
-          return {
-            categorys,
-            commonCategorys
-          };
-        });
-      };
-
-      addCustomCategory = (e) => {
-        e.preventDefault();
-        const newCategory = [...this.state.categorys]
-        newCategory.push(this.state.category)
-        this.setState({
-          categorys: newCategory,
-          category: ""
-        })
-      }
-
-      deleteIngredient = (e, index) => {
-        e.preventDefault();
-        const newIngredients = [...this.state.ingredients];
-        newIngredients.splice(index, 1);
-        this.setState({
-          ingredients: newIngredients
-        });
-      };
-      deleteInstructions = (e, index) => {
-        e.preventDefault();
-        const newInstructions = [...this.state.instructions];
-        newInstructions.splice(index, 1);
-        this.setState({
-          instructions: newInstructions
-        });
-      };
-      deleteCategory = (e, index) => {
-        e.preventDefault();
-        const newCategory = [...this.state.category];
-        newCategory.splice(index, 1);
-        this.setState({
-          category: newCategory
-        });
-      };
-
       submitRecipe = e => {
         e.preventDefault();
         const newRecipe = {
           title: this.state.title,
           source: this.state.source,
-          ingredients: this.state.ingredients,
-          instructions: this.state.instructions,
           category: this.state.category
         };
         console.log('submit recipe history', this.props.history);
         this.props.addRecipe(newRecipe, this.props.history);
+        const newIngredients = {
+          name: this.state.name
+        };
+        console.log('submit ingredients', this.props.history);
+        this.props.addIngredients(newIngredients, this.props.history);
+        const newInstructions = {
+          step_number: this.state.step_number,
+          instructions: this.state.instructions
+        };
+        console.log('submit instructions', this.props.history);
+        this.props.addInstructions(newInstructions, this.props.history);
       };
     
 render(){
@@ -123,6 +47,7 @@ render(){
         <div className="recipe-form">
           <h2>Create New Recipe</h2>
           <form onSubmit={this.submitRecipe}>
+{/* Add Title */}
             <input
               placeholder="Title"
               type="text"
@@ -131,6 +56,7 @@ render(){
               onChange={this.handleChanges}
               value={this.state.title}
             />
+{/* Add Source */}
             <input
               placeholder="Source"
               type="text"
@@ -138,83 +64,46 @@ render(){
               onChange={this.handleChanges}
               value={this.state.source}
             />
-            <div className="ingredients-wrapper">
+{/* Add Ingredients */}
               <h3>Ingredients</h3>
-  
               <input
                 placeholder="Ingredient"
                 type="text"
-                name="ingredientValue"
+                name="name"
                 onChange={this.handleChanges}
-                value={this.state.ingredientValue}
-              />
-              <button onClick={this.addIngredient}>Add Ingredient</button>
-              {this.state.ingredients.map((ingredient, index) => (
-                <div className="ingredient">
-                  <ShowArrayItem
-                    listNum={index + 1}
-                    item={ingredient}
-                    key={index}
-                  />
-                  <button onClick={e => this.deleteIngredient(e, index)}>
-                  Delete Ingredient
-                </button>
-                </div>
-              ))}
-            </div>
+                value={this.state.name}
+              />            
+{/* Add Instructions */}
             <div className="directions-wrapper">
               <h3>Instructions</h3>
+    {/* Add Step Number */}
+              <h3>Step Number</h3>
               <input
                 type="text"
-                name="instructionValue"
+                name="step_numbers"
                 onChange={this.handleChanges}
-                value={this.state.instructionValue}
+                value={this.state.step_numbers}
+                placeholder="Instruction Number"
+              />
+      {/* Add Instructions */}
+              <h3>Instructions</h3>
+                <input
+                type="text"
+                name="instructions"
+                onChange={this.handleChanges}
+                value={this.state.instructions}
                 placeholder="Instructions"
               />
-              <button onClick={this.addInstructions}>Plus</button>
-              {this.state.instructions.map((instruction, index) => (
-                <div className="direction">
-                  <ShowArrayItem
-                    listNum={index + 1}
-                    item={instruction}
-                    key={index}
-                  />
-                  <button onClick={e => this.deleteInstructions(e, index)}>
-                  Delete Instruction
-                </button>
-                </div>
-              ))}
             </div>
-            <div className="categorys-wrapper">
+{/* Add Category */}
               <h3>Category</h3>
-              <div className="categorys">
-              {this.state.commonCategorys.map((category, index) => {
-                return (
-                  <button
-                    key={index}
-                    onClick={e => this.addCategoryByButton(e, category)}
-                  >
-                    {category}
-                  </button>
-                );
-              })}
-                 <input
-                  type="text"
-                  name="category"
-                  onChange={this.handleChanges}
-                  value={this.state.category}
-                />
-                <button onClick={this.addCustomCategory}>Add Custom Category</button>
-              {this.state.categorys.map((category, index) => (
-                <div className="tag">
-                  <p>{category}</p>
-                  <button onClick={e => this.deleteCategory(e, index)}>
-                    Delete Category
-                  </button>
-                  </div>
-                ))}
-              </div>
-            </div>
+              <input
+                type="text"
+                name="category"
+                onChange={this.handleChanges}
+                value={this.state.category}
+                placeholder="Category"
+              />
             <button type="submit">Add Recipe</button>
           </form>
         </div>

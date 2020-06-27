@@ -6,7 +6,7 @@ export const SIGN_UP_SUCCESS = "SIGN_UP_SUCCESS";
 export const SIGN_UP_FAILURE = "SIGN_UP_FAILURE";
 
 export const signUp = (credentials, history) => dispatch => {
-  const creds = { email: credentials.email, password: credentials.password }
+  const creds = { email: credentials.email, password: credentials.password, first_name: credentials.first_name, last_name: credentials.last_name }
   dispatch({ type: SIGN_UP_START });
   axios
     .post(
@@ -19,7 +19,7 @@ export const signUp = (credentials, history) => dispatch => {
         localStorage.setItem("token", res.data.token);
         history.push('/');
       } else {
-        credentials.history.push('/login');
+        credentials.history.push('/');
       }
       return true;
     })
@@ -85,6 +85,40 @@ export const addRecipe = (newRecipe, history) => dispatch => {
       dispatch({ type: ADD_RECIPE_FAILURE, payload: err });
     });
 };
+export const ADD_INGREDIENTS_START = "ADD_INGREDIENTS_START";
+export const ADD_INGREDIENTS_SUCCESS = "ADD_INGREDIENTS_SUCCESS";
+export const ADD_INGREDIENTS_FAILURE = "ADD_INGREDIENTS_FAILURE";
+
+export const addIngredients = (newIngredients, history) => dispatch => {
+  dispatch({ type: ADD_INGREDIENTS_START });
+  axiosWithAuth()
+    .post("https://secret-family-recipes1.herokuapp.com/api/recipes/:id/ingredients", newIngredients)
+    .then(res => {
+      dispatch({ type: ADD_INGREDIENTS_SUCCESS, payload: res.data });
+      const recipe_id = res.data[res.data.length - 1].id
+      history.push(`/recipes/${recipe_id}`)
+    })
+    .catch(err => {
+      dispatch({ type: ADD_INGREDIENTS_FAILURE, payload: err });
+    });
+};
+export const ADD_INSTRUCTIONS_START = "ADD_INSTRUCTIONS_START";
+export const ADD_INSTRUCTIONS_SUCCESS = "ADD_INSTRUCTIONS_SUCCESS";
+export const ADD_INSTRUCTIONS_FAILURE = "ADD_INSTRUCTIONS_FAILURE";
+
+export const addInstructions = (newInstructions, history) => dispatch => {
+  dispatch({ type: ADD_INSTRUCTIONS_START });
+  axiosWithAuth()
+    .post("https://secret-family-recipes1.herokuapp.com/api/recipes/:ID/instructions", newInstructions)
+    .then(res => {
+      dispatch({ type: ADD_INSTRUCTIONS_SUCCESS, payload: res.data });
+      const recipe_id = res.data[res.data.length - 1].id
+      history.push(`/recipes/${recipe_id}`)
+    })
+    .catch(err => {
+      dispatch({ type: ADD_INSTRUCTIONS_FAILURE, payload: err });
+    });
+};
 
 export const UPDATE_RECIPE_START = "EDIT_RECIPE_START";
 export const UPDATE_RECIPE_SUCCESS = "EDIT_RECIPE_SUCCESS";
@@ -101,6 +135,40 @@ export const updateRecipe = (recipeID, updatedRecipe, history) => dispatch => {
     })
     .catch(err => {
       dispatch({ type: UPDATE_RECIPE_FAILURE, payload: err });
+    });
+};
+export const UPDATE_INGREDIENTS_START = "EDIT_INGREDIENTS_START";
+export const UPDATE_INGREDIENTS_SUCCESS = "EDIT_INGREDIENTS_SUCCESS";
+export const UPDATE_INGREDIENTS_FAILURE = "EDIT_INGREDIENTS_FAILURE";
+
+export const updateIngredients = (ingredientsID, updatedIngredients, history) => dispatch => {
+  dispatch({ type: UPDATE_INGREDIENTS_START });
+  axiosWithAuth()
+    .put(`https://secret-family-recipes1.herokuapp.com/api/recipes/${ingredientsID}`, updatedIngredients)
+    .then(res => {
+      dispatch({ type: UPDATE_INGREDIENTS_SUCCESS, payload: res.data });
+      const recipe_id = res.data.id
+      history.push(`/recipes/${recipe_id}`)
+    })
+    .catch(err => {
+      dispatch({ type: UPDATE_INGREDIENTS_FAILURE, payload: err });
+    });
+};
+export const UPDATE_INSTRUCTIONS_START = "EDIT_INSTRUCTIONS_START";
+export const UPDATE_INSTRUCTIONS_SUCCESS = "EDIT_INSTRUCTIONS_SUCCESS";
+export const UPDATE_INSTRUCTIONS_FAILURE = "EDIT_INSTRUCTIONS_FAILURE";
+
+export const updateInstructions = (instructionsID, updatedInstructions, history) => dispatch => {
+  dispatch({ type: UPDATE_INSTRUCTIONS_START });
+  axiosWithAuth()
+    .put(`https://secret-family-recipes1.herokuapp.com/api/recipes/${instructionsID}`, updatedInstructions)
+    .then(res => {
+      dispatch({ type: UPDATE_INSTRUCTIONS_SUCCESS, payload: res.data });
+      const recipe_id = res.data.id
+      history.push(`/recipes/${recipe_id}`)
+    })
+    .catch(err => {
+      dispatch({ type: UPDATE_INSTRUCTIONS_FAILURE, payload: err });
     });
 };
 

@@ -16,8 +16,7 @@ const User = ({ history }) => {
     };
   
     const [user, setUser] = useState({
-        first_name: 'Test',
-        last_name: 'User'
+        first_name: 'Your'
     });
 
     const [recipes, setRecipes] = useState([]);
@@ -38,7 +37,7 @@ const User = ({ history }) => {
         <div className="App">
           <Navigation/>
         <Jumbotron>
-            <h1 className='display-3'>{user.first_name} {user.last_name}'s Family Recipes!</h1>
+            <h1 className='display-3'>{user.first_name} Family Recipes!</h1>
             <hr className='my-2'></hr>
             <TagSearch />
             <RecipeList />
