@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getTitles } from "../utils/actions";
+import { getTitles } from "../../utils/actions";
 
 class TagSearch extends React.Component {
   state = {

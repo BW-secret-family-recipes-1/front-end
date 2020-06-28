@@ -1,156 +1,131 @@
-import React from 'react';
+import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { signUp } from "../../utils/actions";
-import ObjectForm from './ObjectForm';
-import * as yup from 'yup'
 
 class SignUpForm extends React.Component {
-    state = {
-      user: {
-        email: "",
-        password: "",
-        confirm_password: "",
-        first_name: "",
-        last_name: "",
-        passwordMatch: true
-      },
-      errors: {
-        email: '',
-        password: '',
-        confirm_password: '',
-        first_name: '',
-        last_name: ''
-      }
-    };
-    
+  state = {
+    email: "",
+    password1: "",
+    password2: "",
+    first_name: "",
+    last_name: "",
+    passwordMatch: true
+  };
 
-    formSchema = yup.object().shape({
-      email: yup
-        .string()
-        .email()
-        .required("Must enter an email"),
-      password: yup
-        .string()
-        .required('must enter a password'),
-      confirm_password: yup
-        .string()
-        .test('match', 'Passwords must match', (confirm_password)=> {return confirm_password === this.state.user.password}),
-      first_name: yup
-        .string()
-        .required('Please enter a first name'),
-      last_name: yup
-        .string()
-        .required('Please enter a last name')
-    })
-
-    validate(e){
-      yup.reach(this.formSchema, e.target.name)
-          .validate(e.target.value)
-          .then(valid =>{
-            this.setState({...this.state, errors: {...this.state.errors, [e.target.name]: ''}})
-          })
-          .catch(err =>{
-            this.setState({...this.state, errors: {...this.state.errors, [e.target.name]: err.errors[0]}})
-          })
-        
-    }
-
-    
-
-    handleChanges = e => {
-        e.persist();
-        this.validate(e)
-        this.setState({...this.state, user: {...this.state.user, 
-          [e.target.name]: e.target.value
-        }});
-      };
-
-      signUp = e => {
-        e.preventDefault();
-        if (this.state.user.password === this.state.user.confirm_password) {
-          const newUser = {
-            email: this.state.user.email,
-            password: this.state.user.password,
-            first_name: this.state.user.first_name,
-            last_name: this.state.user.last_name
-          };
-          this.props.signUp(newUser, this.props.history);
-          this.setState({...this.state, user:{
-            email: "",
-            password: "",
-            confirm_password: "",
-            first_name: '',
-            last_name: '',
-            passwordMatch: true
-          }});
-        } else {
-          this.setState({...this.state, user: { ...this.state.user, passwordMatch: false }});
-        }
-      };
-
-      render() {
-        return (
-            <div className="signup-page-wrapper">
-            <div className="signup-form-wrapper">
-              {this.props.signingUp ? (
-                <h2>Loading</h2>
-              ) : (
-                <>
-                  
-                  <div className="form-wrapper" onSubmit={this.signUp}>
-                    <div className="signup-form-header">
-                      <div className="signup-logo-wrapper">
-                      </div>
-                      <h3>Welcome to</h3>
-                      <h2>Secret Cookbook</h2>
-                    </div>
-                    <ObjectForm
-                    object={this.state.user}
-                    change={this.handleChanges}
-                    submit={this.signUp}
-                    errors={this.state.errors}
-                    types={{
-                      email: 'text',
-                      password: 'password',
-                      confirm_password: 'password',
-                      first_name: 'text',
-                      last_name: 'text'
-                    }}
-                    action={[
-                      {
-                        text: 'Sign Up',
-                        action: signUp
-                      }
-                    ]}
-                    />
-                    {!this.state.user.passwordMatch ? (
-                      <p>Oops! Your passwords don't match</p>
-                    ) : (
-                      ""
-                    )}
-                    <p className="signup-small-font">
-                      Already a member? Sign in{" "}
-                      <Link to="/" className="signup-link">
-                        here
-                      </Link>
-                    </p>
-                    </div>
-                </>
-              )}
-            </div>
-          </div>
-        );
-      }
-    }
-    
-    const mapStateToProps = state => ({
-      signingUp: state.signingUp
+  handleChanges = e => {
+    e.persist();
+    this.setState({
+      [e.target.name]: e.target.value
     });
-    
+  };
+
+  signUp = e => {
+    e.preventDefault();
+    if (this.state.password1 === this.state.password2) {
+      const newUser = {
+        email: this.state.email,
+        password: this.state.password1,
+        first_name: this.state.first_name,
+        last_name: this.state.last_name
+      };
+      this.props.signUp(newUser, this.props.history);
+      this.setState({
+        email: "",
+        password1: "",
+        password2: "",
+        first_name: "",
+        last_name: ""
+      });
+    } else {
+      this.setState({ ...this.state, passwordMatch: false });
+    }
+  };
+
+  render() {
+    return (
+      <div className="signup-page-wrapper">
+        <div className="signup-form-wrapper">
+          {this.props.signingUp ? (
+            <h2>Loading</h2>
+          ) : (
+            <>
+              <form className="form-wrapper" onSubmit={this.signUp}>
+                <div className="signup-form-header">
+                  <h3>Welcome to</h3>
+                  <h2>Secret Cookbook</h2>
+                </div>
+                <p>Email</p>
+                <input
+                  type="text"
+                  required
+                  name="email"
+                  onChange={this.handleChanges}
+                  value={this.input}
+                />
+                <p>Create password</p>
+                <input
+                  type="password"
+                  required
+                  name="password1"
+                  onChange={this.handleChanges}
+                  value={this.input}
+                />
+                <p>Confirm password</p>
+                <input
+                  type="password"
+                  required
+                  name="password2"
+                  onChange={this.handleChanges}
+                  value={this.input}
+                />
+                {!this.state.passwordMatch ? (
+                  <p>Oops! Your passwords don't match</p>
+                ) : (
+                  ""
+                )}
+                <p>Fist Name</p>
+                <input
+                  type="text"
+                  required
+                  name="first_name"
+                  onChange={this.handleChanges}
+                  value={this.input}
+                />
+                <p>Last Name</p>
+                <input
+                  type="text"
+                  required
+                  name="last_name"
+                  onChange={this.handleChanges}
+                  value={this.input}
+                />
+                <br />
+                <button className="signup-btn" type="submit">
+                  Sign Up
+                </button>
+                <p className="signup-small-font">
+                  Already a member? Sign in{" "}
+                  <Link to="/login" className="signup-link">
+                    here
+                  </Link>
+                </p>
+              </form>
+            </>
+          )}
+        </div>
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = state => ({
+  signingUp: state.signingUp
+});
+
 export default withRouter(
-    connect(
-        mapStateToProps,
-        { signUp }
-    )(SignUpForm)
+  connect(
+    mapStateToProps,
+    { signUp }
+  )(SignUpForm)
 );
