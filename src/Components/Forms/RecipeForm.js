@@ -108,14 +108,12 @@ class RecipeForm extends React.Component {
   
   submitRecipe = e => {
     e.preventDefault();
-    const fullNoteString = this.state.fullNote.join("||")
     const newRecipe = {
       title: this.state.title,
       source: this.state.source,
       ingredients: this.state.ingredients,
       instructions: this.state.directions,
-      tags: this.state.tags,
-      notes: fullNoteString
+      tags: this.state.tags
     };
     console.log('submit recipe history', this.props.history);
     this.props.addRecipe(newRecipe, this.props.history);
