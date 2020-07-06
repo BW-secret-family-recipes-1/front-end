@@ -1,15 +1,10 @@
-
-import React from 'react'
+import React from "react";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { logIn } from "../../utils/actions";
 import { withRouter } from "react-router";
-import { Form, Label, Input } from 'reactstrap';
-import LabeledInput from './LabeledInput';
-import '../../App.css';
-import ObjectForm from './ObjectForm';
 
-class LoginPage extends React.Component {
+class SignInForm extends React.Component {
   state = {
     credentials: {
       email: "",
@@ -38,52 +33,52 @@ class LoginPage extends React.Component {
   };
 
   render() {
-     {if (localStorage.getItem("token")) {
-       return <Redirect to="/user" />;
-     }}
+    if (localStorage.getItem("token")) {
+      return <Redirect to="/" />;
+    }
     return (
       <div className="login-wrapper">
+        <div>
           {this.props.loggingIn ? (
             <h2>Loading</h2>
           ) : (
             <>
-            
-              <div className='form-wrapper' onSubmit={this.logIn}>
+              <form className="form-wrapper" onSubmit={this.logIn}>
                 <div className="login-header">
-                  <h2>Your Secret Cookbook</h2>
-                  <h3>Log in</h3>
+                  <div>
+                  </div>
+                  <h3>Log in to</h3>
+                  <h2> Secret Cookbook</h2>
                 </div>
-                <ObjectForm
-                  object={this.state.credentials}
-                  change={this.handleChanges}
-                  submit={this.logIn}
-                  errors={
-                    {
-                      email: '',
-                      password: ''
-                    }
-                  }
-                  types={{
-                    email: 'text',
-                    password: 'password'
-                  }}
-                  action={[
-                    {
-                      text: 'Log In',
-                      action: this.logIn
-                    }
-                  ]}
+                <p>Email</p>
+                <input
+                  type="text"
+                  required
+                  name="email"
+                  onChange={this.handleChanges}
+                  value={this.input}
                 />
+                <p>Password</p>
+                <input
+                  type="password"
+                  required
+                  name="password"
+                  onChange={this.handleChanges}
+                  value={this.input}
+                />
+                <button className="login-btn" type="submit">
+                  Log In
+                </button>
                 <p className="login-small-font">
                   Not a member? Sign up{" "}
-                  <Link className="login-link" to="/signup">
+                  <Link className="login-link" to="/registration">
                     here
                   </Link>
                 </p>
-                </div>
-              
+              </form>
             </>
           )}
+        </div>
       </div>
     );
   }
@@ -98,5 +93,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     { logIn }
-  )(LoginPage)
+  )(SignInForm)
 );

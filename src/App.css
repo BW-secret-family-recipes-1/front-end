@@ -52,7 +52,8 @@
 
 .title-bar h1,
 .jumbotron h1,
-.card-title h1{
+.card-title h1,
+.header h2{
   font-family: 'Charmonman', cursive;
   font-size: 3rem;
 }
@@ -163,7 +164,10 @@
   font-size: 1.1em;
 }
 
-.recipe-form {
+.recipe-form,
+.header,
+.mainbody,
+.App {
   background-color: #C49069;
 }
 

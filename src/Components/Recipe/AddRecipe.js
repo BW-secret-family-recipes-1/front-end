@@ -1,15 +1,15 @@
 import React from "react";
-import Recipe from "../Components/Recipe/Recipe";
-import Navigation from "./Navigation";
-import Footer from './Footer';
+import RecipeForm from "../Forms/RecipeForm";
+import Navigation from "../Navigation";
+import Footer from "../Footer";
 
 const AddRecipe =() => {
     return (
         <div className="App">
             <>
         <Navigation/>
-        <Recipe/>
-        <Footer/>
+        <RecipeForm/>
+        <Footer />
         </>
         </div>
     )
